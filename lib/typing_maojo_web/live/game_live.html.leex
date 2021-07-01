@@ -1,0 +1,34 @@
+<%
+    sentence_list = ["pow","test","I was born to love you.", "Thank you!", "wonderful", "ape"]
+    sentence = Enum.at(sentence_list,@sentence)
+    char = String.at(sentence,@num)
+    length = String.length(sentence)
+    ch = String.slice(sentence,0,@num)
+    pre = String.slice(sentence,@num,length)
+%>
+<style>
+
+input[type="text"]{
+  height: 0.01px;
+  border: 0px;
+  color: white;
+}
+.gray{
+  color: silver;
+}
+</style>
+<body onLoad="document.form1.fight.focus()">
+    <div >
+        <%=sentence%><br>
+        <span><%=ch%></span><span class="gray"><%=pre%></span><br>
+    </div>
+<br>
+<%=  60 - div(@erlang_system_time - @time,1000000000)%>
+
+<form action="#" name="form1" phx-change="change">
+<p><input type="text" name="fight" size="25"></p>
+<input type="hidden" name="forward" value="<%= @ch %>">
+<input type="hidden" name="for" value="<%= char %>">
+<input type="hidden" name="finish" value="<%= length %>">
+</form>
+</body>
