@@ -18,17 +18,17 @@ input[type="text"]{
 }
 </style>
 <body onLoad="document.form1.fight.focus()">
-    <div >
+    <div phx-window-keyup="type" phx-value-char="<%=char%>" phx-value-finish="<%=length%>">
         <%=sentence%><br>
         <span><%=ch%></span><span class="gray"><%=pre%></span><br>
     </div>
 <br>
 <%=  60 - div(@erlang_system_time - @time,1000000000)%>
 
-<form action="#" name="form1" phx-change="change">
+<!--<form action="#" name="form1" phx-change="change">
 <p><input type="text" name="fight" size="25"></p>
 <input type="hidden" name="forward" value="<%= @ch %>">
 <input type="hidden" name="for" value="<%= char %>">
 <input type="hidden" name="finish" value="<%= length %>">
-</form>
+</form>-->
 </body>

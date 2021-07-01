@@ -15,9 +15,11 @@ defmodule TypingMaojoWeb.GameLive do
         {:noreply, update_socket(socket)}
     end
 
-    def handle_event("change",%{"fight"=>fight,"forward"=>forward, "for"=>forw, "finish"=>finish},socket) do
-        text = fight
-        pre_text = String.replace(fight,forward,"")
+    def handle_event("type",%{"key"=>"Shift"},socket) do
+        {:noreply, socket}
+    end
+    def handle_event("type",%{"key"=>fight,"char"=>forw,"finish"=>finish},socket) do
+        pre_text = fight
         finish = String.to_integer(finish)
         number = socket.assigns.num
         new_socket =
@@ -26,12 +28,12 @@ defmodule TypingMaojoWeb.GameLive do
             |> assign(num: 0) 
         else
             if pre_text == forw do
-            update(socket, :num, &(&1 + 1))
+                update(socket, :num, &(&1 + 1))
             else
-            socket
+                socket
             end
         end
-        {:noreply, assign(new_socket, ch: text, pch: forward)}
+         {:noreply, assign(new_socket, ch: pre_text)}
     end
 
     defp update_socket(socket) do
