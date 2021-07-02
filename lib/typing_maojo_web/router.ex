@@ -18,7 +18,8 @@ defmodule TypingMaojoWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
-    live "/game/", GameLive
+    live "/game/main", GameLive
+    live "/game/finish", FinishLive
   end
 
   # Other scopes may use custom stacks.
