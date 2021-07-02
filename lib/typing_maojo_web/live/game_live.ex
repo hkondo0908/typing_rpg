@@ -17,10 +17,9 @@ defmodule TypingMaojoWeb.GameLive do
         {:noreply, update_socket(socket)}
     end
 
-    def handle_event("type",%{"key"=>fight,"char"=>forw,"finish"=>finish},socket) do
+    def handle_event("type",%{"key"=>pre_text,"char"=>forw,"finish"=>finish},socket) do
         list = MakeList.list_up
         list_length = length(list)
-        pre_text = fight
         finish = String.to_integer(finish)
         number = socket.assigns.num
         at = socket.assigns.sentence_at
