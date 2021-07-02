@@ -18,6 +18,7 @@ defmodule TypingMaojoWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :index
+    live "/game/start", StartLive
     live "/game/main", GameLive
     live "/game/finish", FinishLive
   end

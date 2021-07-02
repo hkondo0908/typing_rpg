@@ -47,7 +47,8 @@ defmodule TypingMaojo.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:micro_timer, "~> 0.1.0"}
+      {:micro_timer, "~> 0.1.0"},
+      {:csv, "~>2.4.1"}
     ]
   end
 

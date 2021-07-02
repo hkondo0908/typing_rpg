@@ -17,9 +17,6 @@ defmodule TypingMaojoWeb.GameLive do
         {:noreply, update_socket(socket)}
     end
 
-    def handle_event("type",%{"key"=>"Shift"},socket) do
-        {:noreply, socket}
-    end
     def handle_event("type",%{"key"=>fight,"char"=>forw,"finish"=>finish},socket) do
         list = MakeList.list_up
         list_length = length(list)
@@ -39,12 +36,14 @@ defmodule TypingMaojoWeb.GameLive do
                 socket
             end
         end
-        sentence_num = new_socket.assigns.sentence
-        if sentence_num == (list_length - 1) do
-
+        sentence_num = new_socket.assigns.sentence_at
+        new_socket = 
+        if sentence_num == list_length  do
+            redirect(socket, to: "/game/finish")
+        else
+            assign(new_socket, ch: pre_text)
         end
-         {:noreply, assign(new_socket, ch: pre_text)}
-
+        {:noreply, new_socket}
     end
 
     defp update_socket(socket) do

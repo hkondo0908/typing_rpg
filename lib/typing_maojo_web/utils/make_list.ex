@@ -1,10 +1,12 @@
 defmodule TypingMaojoWeb.MakeList do
+    alias TypingMaojoWeb.CsvRead
     def list_up do
-        ["pow","test","I was born to love you.", "Thank you!", "wonderful", "ape"]
+        CsvRead.read_CSV
+        |> Enum.map(&(&1["Sentence"]))
     end
     
     def ex_sentence(number) do
-        list = ["pow","test","I was born to love you.", "Thank you!", "wonderful", "ape"]
-        Enum.at(list, number)
+        list_up
+        |> Enum.at(number)
     end
 end
