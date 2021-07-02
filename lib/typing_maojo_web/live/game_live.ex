@@ -7,7 +7,7 @@ defmodule TypingMaojoWeb.GameLive do
     def mount(_params,_session,socket) do
         time = :erlang.system_time
         connected?(socket) && MicroTimer.send_every(@timeout, :update)
-        new_socket = assign(socket, [ch: "", sentence: Enum.random(0..5), num: 0, pch: "-", time: time])
+        new_socket = assign(socket, [sentence: 0, num: 0, time: time])
         {:ok, update_socket(new_socket)}
     end
 
@@ -24,7 +24,7 @@ defmodule TypingMaojoWeb.GameLive do
         number = socket.assigns.num
         new_socket =
         if pre_text == forw and number == (finish-1) do
-            assign(socket, sentence: Enum.random(0..5))
+            update(socket, :sentence,&(&1 + 1))
             |> assign(num: 0) 
         else
             if pre_text == forw do
@@ -46,8 +46,4 @@ defmodule TypingMaojoWeb.GameLive do
         :erlang.system_time
     end
 
-    defp get_date_system_time() do
-    :erlang.system_time
-    |> DateTime.from_unix!(:native)
-    end
 end
