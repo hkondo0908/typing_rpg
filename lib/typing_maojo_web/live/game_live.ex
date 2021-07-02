@@ -7,9 +7,10 @@ defmodule TypingMaojoWeb.GameLive do
     @timeout Float.round(1_000_000 / 60) |> trunc
     def mount(_params,_session,socket) do
         time = :erlang.system_time
-        connected?(socket) && MicroTimer.send_every(@timeout, :update)
+        #connected?(socket) && MicroTimer.send_every(@timeout, :update)
+        connected?(socket) && :timer.send_interval(1000, :update)
         sentence = MakeList.ex_sentence(0)
-        new_socket = assign(socket, [num: 0, time: time, sentence: sentence, sentence_at: 0, error_count: 0, esctime: 0])
+        new_socket = assign(socket, [num: 0, time: 0, sentence: sentence, sentence_at: 0, error_count: 0, escflag: false])
         {:ok, update_socket(new_socket)}
     end
 
@@ -18,9 +19,7 @@ defmodule TypingMaojoWeb.GameLive do
     end
 
     def handle_event("type", %{"key"=>"Escape"},socket) do
-        esctime = :erlang.system_time
-        socket = assign(socket, :esctime, esctime)
-        {:noreply, socket}
+        {:noreply, update(socket, :escflag, & !&1)}
         #MicroTimer.cancel_timer(:update)
         #Process.alive?(:update)
     end
@@ -33,25 +32,30 @@ defmodule TypingMaojoWeb.GameLive do
         number = socket.assigns.num
         at = socket.assigns.sentence_at
         new_socket =
-        if pre_text == forw and number == (finish-1) do
-            assign(socket, sentence: MakeList.ex_sentence(at + 1))
-            |> update(:sentence_at, &(&1 + 1))
-            |> assign(num: 0)
-        else
-            if pre_text == forw do
-                update(socket, :num, &(&1 + 1))
+            if socket.assigns.escflag do
+                socket
             else
-                if pre_text == "Shift" do
-                    socket
+
+                if pre_text == forw and number == (finish-1) do
+                    assign(socket, sentence: MakeList.ex_sentence(at + 1))
+                    |> update(:sentence_at, &(&1 + 1))
+                    |> assign(num: 0)
                 else
-                    if socket.assigns.error_count == 9 do
-                        redirect(socket, to: "/game/finish")
+                    if pre_text == forw do
+                        update(socket, :num, &(&1 + 1))
                     else
-                        update(socket, :error_count, &(&1 + 1))
+                        if pre_text == "Shift" do
+                            socket
+                        else
+                            if socket.assigns.error_count == 9 do
+                                redirect(socket, to: "/game/finish")
+                            else
+                                update(socket, :error_count, &(&1 + 1))
+                            end
+                        end
                     end
                 end
             end
-        end
         sentence_num = new_socket.assigns.sentence_at
         new_socket =
         if sentence_num == list_length  do
@@ -63,11 +67,15 @@ defmodule TypingMaojoWeb.GameLive do
     end
 
     defp update_socket(socket) do
-        socket = assign(socket, :erlang_system_time, get_erlang_system_time())
-        if div(get_erlang_system_time() - socket.assigns.time, 1000000000) > 60 do
+     #  socket = assign(socket, :erlang_system_time, get_erlang_system_time())
+        if socket.assigns.time > 59 do
             redirect(socket, to: "/game/finish")
         else
-            socket
+            if socket.assigns.escflag do
+                socket
+            else
+               update(socket, :time, & &1 + 1)
+            end
         end
     end
 

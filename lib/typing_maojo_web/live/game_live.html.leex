@@ -1,4 +1,5 @@
 <%
+
     sentence = @sentence
     char = String.at(sentence,@num)
     length = String.length(sentence)
@@ -9,18 +10,24 @@
 .silver{
   color: silver;
 }
+.red{
+  color: red;
+}
 </style>
 <body>
     <div phx-window-keyup="type" phx-value-char="<%=char%>" phx-value-finish="<%=length%>">
+        <%= if @escflag do %>
+        <p class="red">中断中　escキーで再開</p>
+        <% end %>
         <%=sentence%><br>
         <span><%=ch%></span><span class="silver"><%=pre%></span><br>
     </div>
 <br>
 hp: <%= 10- @error_count %><br>
-time:<%=  60 - div(@erlang_system_time - @time,1000000000)%><br>
-esctime: <%= @esctime %>
+time:<%=  60 - @time %><br>
 
 <br>
 <br>
 <%= button "スタート画面へ", to: "/game/start", method: :get %>
+<p>*escキーで一時中断*</p>
 </body>
