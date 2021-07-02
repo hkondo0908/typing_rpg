@@ -19,7 +19,7 @@ defmodule TypingMaojoWeb.Router do
 
     live "/", PageLive, :index
     live "/game/start", StartLive
-    live "/game/main", GameLive
+    live "/game/main", MainLive
     live "/game/finish", FinishLive
   end
 

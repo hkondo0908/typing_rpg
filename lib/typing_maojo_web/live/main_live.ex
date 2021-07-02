@@ -1,8 +1,9 @@
-defmodule TypingMaojoWeb.GameLive do
+defmodule TypingMaojoWeb.MainLive do
     use Phoenix.LiveView
     use Phoenix.HTML
     import TypingMaojoWeb.ErrorHelpers
     alias TypingMaojoWeb.MakeList
+    alias TypingMaojoWeb.Router.Helpers, as: Routes 
 
     @timeout Float.round(1_000_000 / 60) |> trunc
     def mount(_params,_session,socket) do
@@ -68,8 +69,10 @@ defmodule TypingMaojoWeb.GameLive do
 
     defp update_socket(socket) do
      #  socket = assign(socket, :erlang_system_time, get_erlang_system_time())
-        if socket.assigns.time > 59 do
-            redirect(socket, to: "/game/finish")
+        if socket.assigns.time > 9 do
+            IO.inspect(socket)
+            #redirect(socket,to: Routes.live_path(socket.endpoint,FinishLive))
+            socket
         else
             if socket.assigns.escflag do
                 socket
