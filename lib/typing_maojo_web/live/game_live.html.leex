@@ -16,8 +16,10 @@
         <span><%=ch%></span><span class="silver"><%=pre%></span><br>
     </div>
 <br>
-<%= @error_count %>
-<%=  60 - div(@erlang_system_time - @time,1000000000)%>
+hp: <%= 10- @error_count %><br>
+time:<%=  60 - div(@erlang_system_time - @time,1000000000)%><br>
+esctime: <%= @esctime %>
+
 <br>
 <br>
 <%= button "スタート画面へ", to: "/game/start", method: :get %>

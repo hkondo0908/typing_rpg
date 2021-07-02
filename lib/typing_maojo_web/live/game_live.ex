@@ -9,13 +9,22 @@ defmodule TypingMaojoWeb.GameLive do
         time = :erlang.system_time
         connected?(socket) && MicroTimer.send_every(@timeout, :update)
         sentence = MakeList.ex_sentence(0)
-        new_socket = assign(socket, [num: 0, time: time, sentence: sentence, sentence_at: 0, error_count: 0])
+        new_socket = assign(socket, [num: 0, time: time, sentence: sentence, sentence_at: 0, error_count: 0, esctime: 0])
         {:ok, update_socket(new_socket)}
     end
 
     def handle_info(:update, socket) do
         {:noreply, update_socket(socket)}
     end
+
+    def handle_event("type", %{"key"=>"Escape"},socket) do
+        esctime = :erlang.system_time
+        socket = assign(socket, :esctime, esctime)
+        {:noreply, socket}
+        #MicroTimer.cancel_timer(:update)
+        #Process.alive?(:update)
+    end
+
 
     def handle_event("type",%{"key"=>pre_text,"char"=>forw,"finish"=>finish},socket) do
         list = MakeList.list_up
@@ -35,7 +44,11 @@ defmodule TypingMaojoWeb.GameLive do
                 if pre_text == "Shift" do
                     socket
                 else
-                    update(socket, :error_count, &(&1 + 1))
+                    if socket.assigns.error_count == 9 do
+                        redirect(socket, to: "/game/finish")
+                    else
+                        update(socket, :error_count, &(&1 + 1))
+                    end
                 end
             end
         end
