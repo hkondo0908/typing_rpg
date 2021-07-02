@@ -39,7 +39,6 @@ defmodule TypingMaojoWeb.GameLive do
     defp update_socket(socket) do
         socket
         |> assign(:erlang_system_time, get_erlang_system_time())
-        |> assign(:date_system_time, get_date_system_time())
     end
 
     defp get_erlang_system_time() do
