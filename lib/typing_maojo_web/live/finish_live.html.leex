@@ -1,4 +1,9 @@
+<%
+[result|tail] = String.split(@result,"\n")
+message = Enum.join(tail,"\n")
+%>
 <div>
-<p>Congratulations!</p>
+<h1><%= result%></h1>
+<p><%=message%></p>
 <%= button "ステージ選択に戻る", to: "/game/start", method: :get%>
 </div>

@@ -49,7 +49,8 @@ defmodule TypingMaojoWeb.MainLive do
                             socket
                         else
                             if socket.assigns.error_count == 9 do
-                                redirect(socket, to: "/game/finish")
+                                put_flash(socket,:result,:failed)
+                                |> redirect(to: "/game/finish")
                             else
                                 update(socket, :error_count, &(&1 + 1))
                             end
@@ -60,7 +61,8 @@ defmodule TypingMaojoWeb.MainLive do
         sentence_num = new_socket.assigns.sentence_at
         new_socket =
         if sentence_num == list_length  do
-            redirect(socket, to: "/game/finish")
+            put_flash(socket,:result,:completed)
+            |> redirect(to: "/game/finish")
         else
             assign(new_socket, ch: pre_text)
         end
@@ -69,10 +71,11 @@ defmodule TypingMaojoWeb.MainLive do
 
     defp update_socket(socket) do
      #  socket = assign(socket, :erlang_system_time, get_erlang_system_time())
-        if socket.assigns.time > 9 do
-            IO.inspect(socket)
-            #redirect(socket,to: Routes.live_path(socket.endpoint,FinishLive))
-            socket
+        if socket.assigns.time > 59 do
+            socket = 
+            put_flash(socket,:result, :finished)
+            |> put_flash(:count, socket.assigns.sentence_at + 1)
+            |> redirect(to: "/game/finish")
         else
             if socket.assigns.escflag do
                 socket
