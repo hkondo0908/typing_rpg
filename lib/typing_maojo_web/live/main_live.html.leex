@@ -1,11 +1,3 @@
-<%
-
-    sentence = @sentence
-    char = String.at(sentence,@num)
-    length = String.length(sentence)
-    ch = String.slice(sentence,0,@num)
-    pre = String.slice(sentence,@num,length)
-%>
 <style>
 .silver{
   color: silver;
@@ -15,12 +7,12 @@
 }
 </style>
 <body>
-    <div phx-window-keyup="type" phx-value-char="<%=char%>" phx-value-finish="<%=length%>">
+    <div phx-window-keyup="type">
         <%= if @escflag do %>
         <p class="red">中断中　escキーで再開</p>
         <% end %>
-        <%=sentence%><br>
-        <span><%=ch%></span><span class="silver"><%=pre%></span><br>
+        <%=@sentence%><br>
+        <span><%=@typed%></span><span class="silver"><%=@remain%></span><br>
     </div>
 <br>
 hp: <%= 10- @error_count %><br>

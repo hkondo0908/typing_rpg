@@ -9,4 +9,13 @@ defmodule TypingMaojoWeb.MakeList do
         list_up
         |> Enum.at(number)
     end
+
+    def sentence_length(number) do
+        String.length(ex_sentence(number)) - 1
+    end
+
+    def list_length() do
+        list_up
+        |>length()
+    end
 end
