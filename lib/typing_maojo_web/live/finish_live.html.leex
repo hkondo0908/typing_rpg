@@ -1,9 +1,16 @@
 <%
 [result|tail] = String.split(@result,"\n")
 message = Enum.join(tail,"\n")
+IO.inspect(@error)
 %>
 <div>
 <h1><%= result%></h1>
 <p><%=message%></p>
+<table>
+<tr>
+<td width="5%">Miss:</td>
+<td><%= @error %></td>
+</tr>
+</table>
 <%= button "ステージ選択に戻る", to: "/game/start", method: :get%>
 </div>

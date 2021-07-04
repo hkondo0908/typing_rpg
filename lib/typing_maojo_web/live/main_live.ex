@@ -50,6 +50,7 @@ defmodule TypingMaojoWeb.MainLive do
                         else
                             if socket.assigns.error_count == 9 do
                                 put_flash(socket,:result,:failed)
+                                |> put_flash(:error,socket.assigns.error_count+1)
                                 |> redirect(to: "/game/finish")
                             else
                                 update(socket, :error_count, &(&1 + 1))
@@ -62,6 +63,8 @@ defmodule TypingMaojoWeb.MainLive do
         new_socket =
         if sentence_num == list_length  do
             put_flash(socket,:result,:completed)
+            |> put_flash(:error,socket.assigns.error_count)
+            |> put_flash(:time,socket.assigns.time)
             |> redirect(to: "/game/finish")
         else
             assign(new_socket, ch: pre_text)
@@ -75,6 +78,7 @@ defmodule TypingMaojoWeb.MainLive do
             socket = 
             put_flash(socket,:result, :finished)
             |> put_flash(:count, socket.assigns.sentence_at + 1)
+            |> put_flash(:error,socket.assigns.error_count)
             |> redirect(to: "/game/finish")
         else
             if socket.assigns.escflag do
