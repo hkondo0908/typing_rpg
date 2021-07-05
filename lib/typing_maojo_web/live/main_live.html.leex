@@ -6,20 +6,22 @@
   color: red;
 }
 </style>
-<body>
-    <div phx-window-keydown="type">
-        <%= if @escflag do %>
-        <p class="red">中断中　escキーで再開</p>
-        <% end %>
-        <%=@sentence%><br>
-        <span><%=@typed%></span><span class="silver"><%=@remain%></span><br>
-    </div>
+<%=if @startflag do%>
+  <div phx-window-keydown="type">
+      <%= if @escflag do %>
+      <p class="red">中断中　escキーで再開</p>
+      <% end %>
+      <%=@sentence%><br>
+      <span><%=@typed%></span><span class="silver"><%=@remain%></span><br>
+  </div><br>
+
+<% else %>
+<button phx-click="start">start</button>
+<% end %>
+<br>
 <br>
 hp: <%= 10- @error_count %><br>
 time:<%=  60 - @time %><br>
-
-<br>
-<br>
 <%= button "スタート画面へ", to: "/game/start", method: :get %>
 <p>*escキーで一時中断*</p>
 </body>

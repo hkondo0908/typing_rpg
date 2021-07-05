@@ -13,6 +13,10 @@ defmodule TypingMaojoWeb.MainLive do
         {:noreply, update_socket(socket)}
     end
 
+    def handle_event("start", _,socket) do
+        {:noreply, update(socket, :startflag, & !&1)}
+    end
+
     def handle_event("type", %{"key"=>"Escape"},socket) do
         {:noreply, update(socket, :escflag, & !&1)}
     end
@@ -23,7 +27,7 @@ defmodule TypingMaojoWeb.MainLive do
 
     def handle_event("type",%{"key"=>key},socket) do
         new_socket =
-            if socket.assigns.escflag, do: socket,
+            if !socket.assigns.startflag or socket.assigns.escflag, do: socket,
             else: update_sentence(socket,key)
         {:noreply, new_socket}
     end
@@ -41,7 +45,8 @@ defmodule TypingMaojoWeb.MainLive do
             sentence_at: 0,
             error_count: 0,
             escflag: false,
-            misstypes: []
+            misstypes: [],
+            startflag: false
         ]
         assign(socket,value)
     end
@@ -50,7 +55,7 @@ defmodule TypingMaojoWeb.MainLive do
         if socket.assigns.time > 59 do
             game_finish(socket,:finished)
         else
-            if socket.assigns.escflag do
+            if !socket.assigns.startflag or socket.assigns.escflag do
                 socket
             else
                update(socket, :time, & &1 + 1)
