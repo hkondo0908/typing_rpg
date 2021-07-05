@@ -16,7 +16,6 @@ defmodule TypingMaojoWeb.FinishLive do
             :failed -> "Failed...\nYou are lost..."
             _ -> "Finished!"
         end
-        IO.inspect(error)
         {:ok,assign(socket,[result: result, error: error])}
     end
 end

@@ -67,28 +67,28 @@ defmodule TypingMaojoWeb.MainLive do
         expected_key = String.at(sentence,number)
         sentence_len = MakeList.sentence_length(at)
         {typed,remain} = String.split_at(sentence,number+1)
-        
+
         if key == expected_key do
             if number == sentence_len do
-                new_sentence = MakeList.ex_sentence(at+1)
-                assign(socket, 
-                [
-                    sentence: new_sentence,
-                    num: 0,
-                    typed: "",
-                    remain: new_sentence
-                ])
-                |> update(:sentence_at, &(&1 + 1))
-            else
                 if at == MakeList.list_length - 1 do
                     game_finish(socket,:completed)
                 else
-                    update(socket, :num, &(&1 + 1))
-                    |> assign([
-                        typed: typed, 
-                        remain: remain
+                    new_sentence = MakeList.ex_sentence(at+1)
+                    assign(socket, 
+                    [
+                        sentence: new_sentence,
+                        num: 0,
+                        typed: "",
+                        remain: new_sentence
                     ])
+                    |> update(:sentence_at, &(&1 + 1))
                 end
+            else
+                update(socket, :num, &(&1 + 1))
+                |> assign([
+                    typed: typed, 
+                    remain: remain
+                ])
             end
         else    
             if error == 9 do
