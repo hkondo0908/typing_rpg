@@ -7,7 +7,7 @@
 }
 </style>
 <body>
-    <div phx-window-keyup="type">
+    <div phx-window-keydown="type">
         <%= if @escflag do %>
         <p class="red">中断中　escキーで再開</p>
         <% end %>
