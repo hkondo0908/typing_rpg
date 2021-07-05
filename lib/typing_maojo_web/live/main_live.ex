@@ -4,13 +4,17 @@ defmodule TypingMaojoWeb.MainLive do
     import TypingMaojoWeb.ErrorHelpers
     alias TypingMaojoWeb.MakeList
 
-    def mount(_params,_session,socket) do
+    def mount(%{"stage"=> stage, "area" => area},_session,socket) do
         connected?(socket) && :timer.send_interval(1000, :update)
-        {:ok, first_socket(socket)}
+        {:ok, first_socket(socket,area,stage)}
     end
 
     def handle_info(:update, socket) do
         {:noreply, update_socket(socket)}
+    end
+
+    def handle_event("start", _,socket) do
+        {:noreply, update(socket, :startflag, & !&1)}
     end
 
     def handle_event("type", %{"key"=>"Escape"},socket) do
@@ -23,22 +27,26 @@ defmodule TypingMaojoWeb.MainLive do
 
     def handle_event("type",%{"key"=>key},socket) do
         new_socket =
-            if socket.assigns.escflag, do: socket, 
+            if !socket.assigns.startflag or socket.assigns.escflag, do: socket,
             else: update_sentence(socket,key)
         {:noreply, new_socket}
     end
 
-    defp first_socket(socket) do
+    defp first_socket(socket,area,stage) do
         value = 
         [
+            area: area,
+            stage: stage,
             num: 0,
             time: 0,
-            sentence: MakeList.ex_sentence(0),
+            sentence: MakeList.ex_sentence(area,stage,0),
             typed: "",
-            remain: MakeList.ex_sentence(0),
+            remain: MakeList.ex_sentence(area,stage,0),
             sentence_at: 0,
             error_count: 0,
-            escflag: false
+            escflag: false,
+            misstypes: [],
+            startflag: false
         ]
         assign(socket,value)
     end
@@ -47,7 +55,7 @@ defmodule TypingMaojoWeb.MainLive do
         if socket.assigns.time > 59 do
             game_finish(socket,:finished)
         else
-            if socket.assigns.escflag do
+            if !socket.assigns.startflag or socket.assigns.escflag do
                 socket
             else
                update(socket, :time, & &1 + 1)
@@ -57,23 +65,25 @@ defmodule TypingMaojoWeb.MainLive do
 
     def update_sentence(socket,key) do
         %{
+            area: area,
+            stage: stage,
             sentence_at: at,
             sentence: sentence,
             num: number,
             error_count: error
-        } 
+        }
         = socket.assigns
 
         expected_key = String.at(sentence,number)
-        sentence_len = MakeList.sentence_length(at)
+        sentence_len = MakeList.sentence_length(area,stage,at)
         {typed,remain} = String.split_at(sentence,number+1)
 
         if key == expected_key do
             if number == sentence_len do
-                if at == MakeList.list_length - 1 do
+                if at == MakeList.list_length(area,stage) - 1 do
                     game_finish(socket,:completed)
                 else
-                    new_sentence = MakeList.ex_sentence(at+1)
+                    new_sentence = MakeList.ex_sentence(area,stage,at+1)
                     assign(socket, 
                     [
                         sentence: new_sentence,
@@ -86,32 +96,46 @@ defmodule TypingMaojoWeb.MainLive do
             else
                 update(socket, :num, &(&1 + 1))
                 |> assign([
-                    typed: typed, 
+                    typed: typed,
                     remain: remain
                 ])
             end
-        else    
+        else
+            socket = update(socket, :error_count, &(&1 + 1)) |> update(:misstypes, &[expected_key|&1])
             if error == 9 do
-                update(socket, :error_count, &(&1 + 1))
-                |> game_finish(:failed)
+                game_finish(socket, :failed)
             else
-                update(socket, :error_count, &(&1 + 1))
-            end    
+                socket
+            end
+
         end
     end
 
     defp game_finish(socket,atom) do
         %{
+            area: area,
+            stage: stage,
             error_count: error,
             time: time,
-            sentence_at: at
+            sentence_at: at,
+            misstypes: misstypes
         }
         =socket.assigns
+
+        misstypes =
+        misstypes
+        |> Enum.frequencies()
+        |> Map.to_list()
+        |> Enum.map(fn {k, v} ->  "#{k}: #{v}" end)
+        |> Enum.join("\n")
 
         put_flash(socket,:result,atom)
         |> put_flash(:error,error)
         |> put_flash(:time,time)
         |> put_flash(:count, at + 1)
+        |> put_flash(:area, area)
+        |> put_flash(:stage,stage)
+        |> put_flash(:misstypes, misstypes)
         |> redirect(to: "/game/finish")
-    end    
+    end
 end

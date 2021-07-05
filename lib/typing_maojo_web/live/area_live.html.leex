@@ -1,0 +1,42 @@
+<%
+str1 = "/game/main/"<>@area<>"/1"
+str2 = "/game/main/"<>@area<>"/2"
+%>
+<style>
+.stage1, .stage2{
+text-align: center;
+display: inline-block;
+border: 1px solid green;
+width : 50%;
+height: 300px;
+float: left;
+position: relative;
+}
+.stage1:hover,.stage2:hover{
+    border: 1px solid green;
+}
+.stage1:hover:after,.stage2:hover:after{
+  content: "";
+  border: solid 1px yellow;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+}
+</style>
+<div>
+    <h1>エリア選択</h1>
+    <div>
+        <a href="<%=str1%>">
+        <div class="stage1">
+            エリア1
+        </div>
+        </a>
+    
+        <a href="<%=str2%>">
+        <div class="stage2">
+            エリア2
+        </div>
+        </a>
+</div>

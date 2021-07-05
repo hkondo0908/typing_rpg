@@ -1,0 +1,50 @@
+<style>
+.area1, .area2, .area3, .area4{
+text-align: center;
+display: inline-block;
+border: 1px solid green;
+width : 20%;
+height: 600px;
+float: left;
+position: relative;
+}
+.area1:hover,.area2:hover,.area3:hover,.area4:hover{
+    border: 1px solid green;
+}
+.area1:hover:after,.area2:hover:after,.area3:hover:after,.area4:hover:after{
+  content: "";
+  border: solid 1px yellow;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+}
+</style>
+<div>
+    <h1>エリア選択</h1>
+    <div>
+        <a href="/game/stage/1">
+        <div class="area1">
+            エリア1: elixir基本
+        </div>
+        </a>
+    
+        <a href="/game/stage/2">
+        <div class="area2">
+            エリア2: Enumモジュール
+        </div>
+        </a>
+
+        <a href="/game/stage/3">
+        <div class="area3">
+            エリア3: Stringモジュール
+        </div>
+        </a>
+
+        <a href="/game/stage/4">
+        <div class="area4">
+            エリア4: Listモジュール
+        </div>
+        </a>
+</div>
