@@ -2,7 +2,8 @@ defmodule TypingMaojoWeb.FinishLive do
     use Phoenix.LiveView
     use Phoenix.HTML
     def mount(_params,_session,socket) do
-
+        area = socket.assigns.flash["area"]
+        stage = socket.assigns.flash["stage"]
         time = socket.assigns.flash["time"]
         error = socket.assigns.flash["error"]
         misstypes = socket.assigns.flash["misstypes"]

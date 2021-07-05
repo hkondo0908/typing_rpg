@@ -19,8 +19,10 @@ defmodule TypingMaojoWeb.Router do
 
     live "/", PageLive, :index
     live "/game/start", StartLive
-    live "/game/main", MainLive
+    live "/game/main/:area/:stage", MainLive
     live "/game/finish", FinishLive
+    live "/game/stage/:area", AreaLive
+    live "/game/area", WorldLive
   end
 
   # Other scopes may use custom stacks.
