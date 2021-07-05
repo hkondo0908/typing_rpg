@@ -100,8 +100,9 @@ header nav a {
   }
 }
 
-div#enemy{
-  text-align: right;
+img#enemy{
+  height: 150px;
+  width: 150px;
 }
 
 
