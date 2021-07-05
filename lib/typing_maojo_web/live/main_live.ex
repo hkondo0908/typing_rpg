@@ -23,7 +23,7 @@ defmodule TypingMaojoWeb.MainLive do
 
     def handle_event("type",%{"key"=>key},socket) do
         new_socket =
-            if socket.assigns.escflag, do: socket, 
+            if socket.assigns.escflag, do: socket,
             else: update_sentence(socket,key)
         {:noreply, new_socket}
     end
@@ -40,7 +40,8 @@ defmodule TypingMaojoWeb.MainLive do
             remain: MakeList.ex_sentence(area,stage,0),
             sentence_at: 0,
             error_count: 0,
-            escflag: false
+            escflag: false,
+            misstypes: []
         ]
         assign(socket,value)
     end
@@ -65,7 +66,7 @@ defmodule TypingMaojoWeb.MainLive do
             sentence: sentence,
             num: number,
             error_count: error
-        } 
+        }
         = socket.assigns
 
         expected_key = String.at(sentence,number)
@@ -90,17 +91,18 @@ defmodule TypingMaojoWeb.MainLive do
             else
                 update(socket, :num, &(&1 + 1))
                 |> assign([
-                    typed: typed, 
+                    typed: typed,
                     remain: remain
                 ])
             end
-        else    
+        else
+            socket = update(socket, :error_count, &(&1 + 1)) |> update(:misstypes, &[expected_key|&1])
             if error == 9 do
-                update(socket, :error_count, &(&1 + 1))
-                |> game_finish(:failed)
+                game_finish(socket, :failed)
             else
-                update(socket, :error_count, &(&1 + 1))
-            end    
+                socket
+            end
+
         end
     end
 
@@ -110,9 +112,17 @@ defmodule TypingMaojoWeb.MainLive do
             stage: stage,
             error_count: error,
             time: time,
-            sentence_at: at
+            sentence_at: at,
+            misstypes: misstypes
         }
         =socket.assigns
+
+        misstypes =
+        misstypes
+        |> Enum.frequencies()
+        |> Map.to_list()
+        |> Enum.map(fn {k, v} ->  "#{k}: #{v}" end)
+        |> Enum.join("\n")
 
         put_flash(socket,:result,atom)
         |> put_flash(:error,error)
@@ -120,6 +130,7 @@ defmodule TypingMaojoWeb.MainLive do
         |> put_flash(:count, at + 1)
         |> put_flash(:area, area)
         |> put_flash(:stage,stage)
+        |> put_flash(:misstypes, misstypes)
         |> redirect(to: "/game/finish")
-    end    
+    end
 end
