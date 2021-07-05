@@ -4,9 +4,9 @@ defmodule TypingMaojoWeb.MakeList do
         CsvRead.read_CSV
         |> Enum.map(&(&1["Sentence"]))
     end
-    
+
     def ex_sentence(number) do
-        list_up
+        list_up()
         |> Enum.at(number)
     end
 
@@ -15,7 +15,7 @@ defmodule TypingMaojoWeb.MakeList do
     end
 
     def list_length() do
-        list_up
+        list_up()
         |>length()
     end
 end
