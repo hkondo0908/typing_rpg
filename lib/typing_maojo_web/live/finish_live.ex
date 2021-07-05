@@ -18,6 +18,6 @@ defmodule TypingMaojoWeb.FinishLive do
             :failed -> "Failed...\nYou are lost..."
             _ -> "Finished!"
         end
-        {:ok,assign(socket,[result: result, error: error, misstypes: misstypes])}
+        {:ok,assign(socket,[result: result, error: error, misstypes: misstypes,area: area,stage: stage])}
     end
 end
