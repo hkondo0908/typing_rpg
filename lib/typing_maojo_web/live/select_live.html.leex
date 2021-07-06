@@ -7,92 +7,49 @@
     |>Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
     ch3 = String.split(ch3,"\n")
     |>Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
-
 %>
-<style>.chara1, .chara2,.chara3{
-text-align: center;
-font-size: 15px;
-display: inline-block;
-border: 1px solid green;
-width : 50%;
-height: 100px;
-position: relative;
-margin: 10px;
-}
-.chara1:hover,.chara2:hover,.chara3:hover{
-    border: 1px solid green;
-    cursor : pointer;
-}
-.chara{
-text-align: center;
-font-size: 15px;
-display: inline-block;
-border: 1px solid green;
-width : 50%;
-height: 100px;
-position: relative;
-margin: 10px;
-}
-.chara1:hover:after,.chara2:hover:after,.chara3:hover:after{
-  content: "";
-  border: solid 1px yellow;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: calc(100% - 6px);
-  height: calc(100% - 6px);
-}
-input[type="text"]{
-    width: 30%;
-}
-</style>
-<div>
-    DATA 1:<br>
-    <%= if f1 do %>
-    <div class="chara" phx-click="start" phx-value-id="1" phx-value-bool="<%= b1%>">
-        <%= ch1%>
-        <form phx-submit="submit">
-            <input type="text" name="name" placeholder="名前を入力してください" required>
-            <input type="hidden" name="id" value="1">
-            <input type="submit" value="決定">
-        </form>
-    </div>
-    <% else %>
-    <div class="chara1" phx-click="start" phx-value-id="1" phx-value-bool="<%= b1%>">
-        <%=ch1%>
-    </div>
-    <% end %>
-    <br>
-    DATA 2:<br>
-    <%= if f2 do %>
-    <div class="chara" phx-click="start" phx-value-id="2" phx-value-bool="<%= b2%>">
-         <%= ch2%>
-        <form phx-submit="submit">
-            <input type="text" name="name" placeholder="名前を入力してください" required>
-            <input type="hidden" name="id" value="2">
-            <input type="submit" value="決定">
-        </form>
-    </div>
-    <% else %>
-    <div class="chara2" phx-click="start" phx-value-id="2" phx-value-bool="<%= b2%>">
-         <%= ch2%>
-    </div>
-    <% end %>
-    <br>
-    DATA 3:<br>
-    <%= if f3 do %>
-    <div class="chara" phx-click="start" phx-value-id="3" phx-value-bool="<%= b3%>">
-         <%= ch3%>
-        <form phx-submit="submit">
-            <input type="text" name="name" placeholder="名前を入力してください" required>
-            <input type="hidden" name="id" value="3">
-            <input type="submit" value="決定">
-        </form>
-    </div>
-    <% else %>
-    <div class="chara3" phx-click="start" phx-value-id="3" phx-value-bool="<%= b3%>">
-         <%= ch3%>
-    </div>
-    <% end %>
 
+<div class="wrapper">
+    <div class="contents-select">
+        <p class="title-select">データを選択</p>
+        <div class="data-box" phx-click="start" phx-value-id="1" phx-value-bool="<%= b1%>">
+            <div class="data-num">データ 1</div>
+            <div class="data-info">
+                <%= ch1 %>
+                <%= if f1 do %>
+                    <form phx-submit="submit">
+                        <input type="text" name="name" placeholder="名前を入力してください" required>
+                        <input type="hidden" name="id" value="1">
+                        <input type="submit" value="決定">
+                    </form>
+                <% end %>
+            </div>
+        </div>
+        <div class="data-box" phx-click="start" phx-value-id="2" phx-value-bool="<%= b2%>">
+            <div class="data-num">データ 2</div>
+            <div class="data-info">
+                <%= ch2 %>
+                <%= if f2 do %>
+                    <form phx-submit="submit">
+                        <input type="text" name="name" placeholder="名前を入力してください" required>
+                        <input type="hidden" name="id" value="2">
+                        <input type="submit" value="決定">
+                    </form>
+                <% end %>
+            </div>
+        </div>
+        <div class="data-box" phx-click="start" phx-value-id="3" phx-value-bool="<%= b3%>">
+            <div class="data-num">データ 3</div>
+            <div class="data-info">
+                <%= ch3 %>
+                <%= if f3 do %>
+                    <form phx-submit="submit">
+                        <input type="text" name="name" placeholder="名前を入力してください" required>
+                        <input type="hidden" name="id" value="3">
+                        <input type="submit" value="決定">
+                    </form>
+                <% end %>
+            </div>
+        </div>
+    </div>
 </div>
