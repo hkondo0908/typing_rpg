@@ -53,7 +53,8 @@ defmodule TypingMaojoWeb.MainLive do
             error_count: 0,
             escflag: false,
             misstypes: [],
-            startflag: false
+            startflag: false,
+            missflag: false
         ]
         assign(socket,value)
     end
@@ -82,6 +83,7 @@ defmodule TypingMaojoWeb.MainLive do
         }
         = socket.assigns
 
+        socket = assign(socket, missflag: false)
         expected_key = String.at(sentence,number)
         sentence_len = MakeList.sentence_length(area,stage,at)
         {typed,remain} = String.split_at(sentence,number+1)
@@ -109,7 +111,10 @@ defmodule TypingMaojoWeb.MainLive do
                 ])
             end
         else
-            socket = update(socket, :error_count, &(&1 + 1)) |> update(:misstypes, &[expected_key|&1])
+            socket =
+                update(socket, :error_count, &(&1 + 1))
+                |> update(:misstypes, &[expected_key|&1])
+                |> assign(missflag: true)
             if error == 9 do
                 game_finish(socket, :failed)
             else
