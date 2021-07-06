@@ -1,16 +1,15 @@
 defmodule TypingMaojoWeb.FinishLive do
     use Phoenix.LiveView
     use Phoenix.HTML
-    alias TypingMaojoWeb.MakeList
+    alias TypingMaojoWeb.ListCharas
+    def mount(%{"id"=>id,"area"=>area,"stage"=>stage},_session,socket) do
 
-    def mount(_params,_session,socket) do
-        area = socket.assigns.flash["area"]
-        stage = socket.assigns.flash["stage"]
         time = socket.assigns.flash["time"]
         error = socket.assigns.flash["error"]
         misstypes = socket.assigns.flash["misstypes"]
-        result =
-        case socket.assigns.flash["result"] do
+        result = socket.assigns.flash["result"]
+        context =
+        case result do
             :completed -> "Congratulations!!\n#{time}秒"
             :finished -> if socket.assigns.flash["count"] < 10 do
                 "Failed...\nTime is Over!"
@@ -20,8 +19,11 @@ defmodule TypingMaojoWeb.FinishLive do
             :failed -> "Failed...\nYou are lost..."
             _ -> "Finished!"
         end
+        if result == :completed do
+            ListCharas.update_chara(id,area,stage,"30")
+        end
         functions = ex_functions(area, stage, socket.assigns.flash["count"])
-        {:ok,assign(socket,[result: result, error: error, misstypes: misstypes, area: area, stage: stage, functions: functions])}
+        {:ok,assign(socket,[context: context,result: result, error: error, misstypes: misstypes, area: area, stage: stage, functions: functions, id: id])}
     end
 
     defp ex_functions(area, stage, count) do

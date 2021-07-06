@@ -4,9 +4,9 @@ defmodule TypingMaojoWeb.MainLive do
     import TypingMaojoWeb.ErrorHelpers, warn: false
     alias TypingMaojoWeb.MakeList
 
-    def mount(%{"stage"=> stage, "area" => area},_session,socket) do
+    def mount(%{"stage"=> stage, "area" => area, "id" => id},_session,socket) do
         connected?(socket) && :timer.send_interval(1000, :update)
-        {:ok, first_socket(socket,area,stage)}
+        {:ok, first_socket(socket,area,stage,id)}
     end
 
     def handle_info(:update, socket) do
@@ -43,9 +43,10 @@ defmodule TypingMaojoWeb.MainLive do
         {:noreply, new_socket}
     end
 
-    defp first_socket(socket,area,stage) do
+    defp first_socket(socket,area,stage,id) do
         value =
         [
+            id: id,
             area: area,
             stage: stage,
             num: 0,
@@ -137,6 +138,7 @@ defmodule TypingMaojoWeb.MainLive do
             time: time,
             sentence_at: at,
             misstypes: misstypes,
+            id: id
         }
         =socket.assigns
 
@@ -151,9 +153,7 @@ defmodule TypingMaojoWeb.MainLive do
         |> put_flash(:error,error)
         |> put_flash(:time,time)
         |> put_flash(:count, at + 1)
-        |> put_flash(:area, area)
-        |> put_flash(:stage,stage)
         |> put_flash(:misstypes, misstypes)
-        |> redirect(to: "/game/finish")
+        |> redirect(to: "/game/finish/#{id}/#{area}/#{stage}")
     end
 end
