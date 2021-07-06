@@ -2,6 +2,7 @@ defmodule TypingMaojoWeb.FinishLive do
     use Phoenix.LiveView
     use Phoenix.HTML
     alias TypingMaojoWeb.ListCharas
+    alias TypingMaojoWeb.MakeList
     def mount(%{"id"=>id,"area"=>area,"stage"=>stage},_session,socket) do
 
         time = socket.assigns.flash["time"]
