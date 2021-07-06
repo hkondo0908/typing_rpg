@@ -53,6 +53,7 @@ defmodule TypingMaojoWeb.MainLive do
             error_count: 0,
             escflag: false,
             misstypes: [],
+            enemy: 1,
             startflag: false
         ]
         assign(socket,value)
@@ -99,7 +100,8 @@ defmodule TypingMaojoWeb.MainLive do
                         typed: "",
                         remain: new_sentence
                     ])
-                    |> update(:sentence_at, &(&1 + 1))
+                    |> update(:sentence_at, & &1 + 1)
+                    |> update(:enemy, & &1 + 1)
                 end
             else
                 update(socket, :num, &(&1 + 1))

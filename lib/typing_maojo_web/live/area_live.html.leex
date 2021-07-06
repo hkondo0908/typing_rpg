@@ -11,6 +11,7 @@ width : 50%;
 height: 400px;
 float: left;
 position: relative;
+font-family: "sippori";
 }
 .stage1:hover,.stage2:hover{
     border: 1px solid green;
@@ -35,6 +36,8 @@ position: relative;
     background: url("/images/back-grounds/<%=@area%>-2.jpg");
     background-size: cover;
     background-position: center;
+
+
 }
 
 
@@ -44,16 +47,15 @@ position: relative;
     <div>
         <a href="<%=str1%>">
         <div class="stage1">
-            ステージ1
+            <span class="message">ステージ1</span>
         </div>
         </a>
 
         <a href="<%=str2%>">
         <div class="stage2">
-
-            ステージ2
+            <span class="message">ステージ2</span>
         </div>
         </a>
     </div>
-    <a href="/game/area">エリア選択画面に戻る</a>
+    <%= button "エリア選択画面に戻る", to: "/game/select", method: :get%>
 </div>

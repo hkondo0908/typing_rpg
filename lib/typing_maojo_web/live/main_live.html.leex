@@ -1,6 +1,5 @@
 
 <div class="wrapper">
-
   <div class="top">
     <div class="top-left">
       <p>escキーで一時中断</p>
@@ -15,7 +14,7 @@
   </div>
 
   <div class="contents">
-    <img class="enemy" src="/images/enemy/基本/8.bmp">
+    <img class="enemy" src="/images/enemy/<%=@area%>/<%=@enemy %>.bmp">
     <div class="input-box">
       <div phx-window-keydown="type" class="typing-box">
         <%=@sentence%><br>
@@ -56,4 +55,3 @@
   <%= button "ステージ選択画面へ", to: "/game/stage/"<>@area, method: :get %>
   <p>*escキーで一時中断*</p>
   </body>
-
