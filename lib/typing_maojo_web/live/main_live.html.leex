@@ -1,30 +1,59 @@
-<style>
-.silver{
-  color: silver;
-}
-.red{
-  color: red;
-}
-</style>
-<div phx-window-keydown="type">
-<%=if @startflag do%>
-  <img id="enemy" src="/images/enemy/基本/8.bmp"><br>
-      <%= if @escflag do %>
-      <p class="red">中断中　escキーで再開</p>
-      <% end %>
-      <%=@sentence_at + 1 %>問目/<%=@max %>問<br>
-      <%=@sentence%><br>
-      <span><%=@typed%></span><span class="silver"><%=@remain%></span><br>
 
+<div class="wrapper">
 
-<% else %>
-Spaceキーでスタート
-<% end %>
-</div><br>
-<br>
-<br>
-hp: <%= 10- @error_count %><br>
-time:<%=  60 - @time %><br>
-<%= button "ステージ選択画面へ", to: "/game/stage/"<>@area, method: :get %>
-<p>*escキーで一時中断*</p>
-</body>
+  <div class="top">
+    <div class="top-left">
+      <p>escキーで一時中断</p>
+    </div>
+    <div class="top-center">
+      <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
+    </div>
+    <div class="top-right">
+      <p>残り時間 00:<%= 60 - @time %></p>
+      <p><%=@sentence_at + 1 %>問目/<%=@max %>問</p>
+    </div>
+  </div>
+
+  <div class="contents">
+    <img class="enemy" src="/images/enemy/基本/8.bmp">
+    <div class="input-box">
+      <div phx-window-keydown="type" class="typing-box">
+        <%=@sentence%><br>
+        <span class="typed"><%=@typed%></span><span class="silver"><%=@remain%></span><br>
+      </div>
+      <div class="hp-box">
+        HP: <%= 10- @error_count %>
+      </div>
+    </div>
+
+  </div>
+  <%= if !@startflag do %>
+    <div class="start-background">
+      <div class="start-message">
+        <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
+        <p>全10問</p>
+        <p>制限時間 60秒</p>
+        <p>HP 10</p>
+        <p>※ミスタイプをするとHPが1減ります。HPが0になったらゲームオーバーです。</p>
+        <p>Spaceキーを押すと始まります。</p>
+      </div>
+    </div>
+    </div>
+  <% end %>
+
+  <%= if @escflag do %>
+    <div class="start-background">
+      <div class="start-message">
+        <p>一時中断中。escキーで再開します。</p>
+      </div>
+    </div>
+  <% end %>
+
+  <br>
+  <br>
+  hp: <%= 10- @error_count %><br>
+  time:<%=  60 - @time %><br>
+  <%= button "ステージ選択画面へ", to: "/game/stage/"<>@area, method: :get %>
+  <p>*escキーで一時中断*</p>
+  </body>
+
