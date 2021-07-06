@@ -61,3 +61,19 @@
     </div>
   </div>
 <% end %>
+
+<audio loop id="space">
+    <source src= "https://wingless-seraph.net/material/Battle-Everlasting.mp3" type="audio/mp3">
+</audio>
+
+
+<script>
+  document.addEventListener('keypress', audioPlay);
+  function audioPlay(e) {
+    if (e.keyCode == 32){
+      document.getElementById('space').play();
+    }
+    document.removeEventListener('keypress', audioPlay);
+    return false;
+  }
+</script>

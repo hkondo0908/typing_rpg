@@ -8,6 +8,22 @@
     <%= live_title_tag assigns[:page_title] || "TypingMaojo", suffix: " · Phoenix Framework" %>
     <link phx-track-static rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+
+    <script>
+      document.addEventListener('click', audioPlay);
+      function audioPlay() {
+      document.getElementById('click').play();
+      document.removeEventListener('click', audioPlay);
+    }
+    </script>
+
+    <script>
+      document.addEventListener('click', audioPlay);
+      function audioPlay() {
+      document.getElementById('audio').play();
+      document.removeEventListener('click', audioPlay);
+    }
+    </script>
   </head>
   <body>
     <!--
