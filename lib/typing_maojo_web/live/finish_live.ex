@@ -3,6 +3,7 @@ defmodule TypingMaojoWeb.FinishLive do
     use Phoenix.HTML
     alias TypingMaojoWeb.ListCharas
     def mount(%{"id"=>id,"area"=>area,"stage"=>stage},_session,socket) do
+
         time = socket.assigns.flash["time"]
         error = socket.assigns.flash["error"]
         misstypes = socket.assigns.flash["misstypes"]
@@ -21,6 +22,13 @@ defmodule TypingMaojoWeb.FinishLive do
         if result == :completed do
             ListCharas.update_chara(id,area,stage,"30")
         end
-        {:ok,assign(socket,[context: context, result: result, error: error, misstypes: misstypes,area: area,stage: stage, id: id])}
+        functions = ex_functions(area, stage, socket.assigns.flash["count"])
+        {:ok,assign(socket,[context: context,result: result, error: error, misstypes: misstypes, area: area, stage: stage, functions: functions, id: id])}
+    end
+
+    defp ex_functions(area, stage, count) do
+        MakeList.list_up_result(area, stage)
+        |> Enum.take(count)
+        |> Enum.map(&Enum.slice(&1, 2, 3))
     end
 end

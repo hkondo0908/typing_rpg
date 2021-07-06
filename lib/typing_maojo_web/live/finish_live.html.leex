@@ -39,12 +39,17 @@ span.button{
 
 <%
 [result|tail] = String.split(@context,"\n")
+
 message = Enum.join(tail,"\n")
 
 
 misstypes =
 if @misstypes do
-@misstypes |> String.split("\n") |> Enum.map(&String.split(&1, "$ ", trim: true))
+@misstypes
+|> String.replace(" $", "（スペース）$")
+|> String.split("\n")
+|> Enum.map(&String.split(&1, "$ ", trim: true))
+|> Enum.sort(&(List.last(&1)>= List.last(&2)))
 else
 []
 end
@@ -127,3 +132,16 @@ end
 <% end %>
 </div>
 </div>
+
+<div>
+<%= for function <- @functions do %>
+<br>打ったお題：<%= List.first(function) %>
+    <%= if List.last(function) != "" do %>
+<br>実行結果：<%= List.last(function) %>
+    <% end %>
+<% end %>
+</div>
+
+<audio autoplay loop id="audio">
+    <source src= "https://wingless-seraph.net/material/Epilogue.mp3" type="audio/mp3">
+</audio>
