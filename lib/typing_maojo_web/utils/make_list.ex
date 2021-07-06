@@ -3,12 +3,12 @@ defmodule TypingMaojoWeb.MakeList do
     def list_up(area,stage) do
         CsvRead.read_CSV
         |> Enum.map(&[&1["Area"],&1["Stage"],&1["Sentence"]])
-        |> Enum.filter(fn [a,s,t] ->
-            a==area and s == stage 
+        |> Enum.filter(fn [a,s,_t] ->
+            a==area and s == stage
         end)
 
     end
-    
+
     def ex_sentence(area,stage,number) do
         list_up(area,stage)
         |> Enum.at(number)
