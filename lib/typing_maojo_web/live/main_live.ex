@@ -60,7 +60,7 @@ defmodule TypingMaojoWeb.MainLive do
             escflag: false,
             misstypes: [],
             enemy: 1,
-            startflag: false
+            startflag: false,
             missflag: false
         ]
         assign(socket,value)
