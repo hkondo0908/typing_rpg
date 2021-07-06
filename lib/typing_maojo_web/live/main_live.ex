@@ -4,9 +4,9 @@ defmodule TypingMaojoWeb.MainLive do
     import TypingMaojoWeb.ErrorHelpers, warn: false
     alias TypingMaojoWeb.MakeList
 
-    def mount(%{"stage"=> stage, "area" => area},_session,socket) do
+    def mount(%{"stage"=> stage, "area" => area, "id" => id},_session,socket) do
         connected?(socket) && :timer.send_interval(1000, :update)
-        {:ok, first_socket(socket,area,stage)}
+        {:ok, first_socket(socket,area,stage,id)}
     end
 
     def handle_info(:update, socket) do
@@ -25,22 +25,28 @@ defmodule TypingMaojoWeb.MainLive do
         {:noreply,socket}
     end
 
-    def handle_event("type",%{"key"=>key},socket) do
+    def handle_event("type",%{"key"=>" "},socket) do
         socket =
-            if !socket.assigns.startflag and key==" " do
-                assign(socket,startflag: true)
-            else
-                socket
-            end
+        if !socket.assigns.startflag do
+            assign(socket,startflag: true)
+        else
+            if socket.assigns.escflag, do: socket,
+            else: update_sentence(socket," ")
+        end
+        {:noreply, socket}
+    end
+
+    def handle_event("type",%{"key"=>key},socket) do
         new_socket =
             if !socket.assigns.startflag or socket.assigns.escflag, do: socket,
             else: update_sentence(socket,key)
         {:noreply, new_socket}
     end
 
-    defp first_socket(socket,area,stage) do
+    defp first_socket(socket,area,stage,id) do
         value =
         [
+            id: id,
             area: area,
             stage: stage,
             num: 0,
@@ -55,6 +61,7 @@ defmodule TypingMaojoWeb.MainLive do
             misstypes: [],
             enemy: 1,
             startflag: false
+            missflag: false
         ]
         assign(socket,value)
     end
@@ -83,6 +90,7 @@ defmodule TypingMaojoWeb.MainLive do
         }
         = socket.assigns
 
+        socket = assign(socket, missflag: false)
         expected_key = String.at(sentence,number)
         sentence_len = MakeList.sentence_length(area,stage,at)
         {typed,remain} = String.split_at(sentence,number+1)
@@ -111,7 +119,10 @@ defmodule TypingMaojoWeb.MainLive do
                 ])
             end
         else
-            socket = update(socket, :error_count, &(&1 + 1)) |> update(:misstypes, &[expected_key|&1])
+            socket =
+                update(socket, :error_count, &(&1 + 1))
+                |> update(:misstypes, &[expected_key|&1])
+                |> assign(missflag: true)
             if error == 9 do
                 game_finish(socket, :failed)
             else
@@ -129,6 +140,7 @@ defmodule TypingMaojoWeb.MainLive do
             time: time,
             sentence_at: at,
             misstypes: misstypes,
+            id: id
         }
         =socket.assigns
 
@@ -143,9 +155,7 @@ defmodule TypingMaojoWeb.MainLive do
         |> put_flash(:error,error)
         |> put_flash(:time,time)
         |> put_flash(:count, at + 1)
-        |> put_flash(:area, area)
-        |> put_flash(:stage,stage)
         |> put_flash(:misstypes, misstypes)
-        |> redirect(to: "/game/finish")
+        |> redirect(to: "/game/finish/#{id}/#{area}/#{stage}")
     end
 end

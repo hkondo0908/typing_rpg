@@ -1,4 +1,25 @@
+<%
+[class1,class2,class3,class4] =
+Enum.map(1..4,fn x->
+    if x<= String.to_integer(@cleared_area) + 1 do
+        "area"<>"#{x}"
+    else
+        "dis_area"<>"#{x}"
+    end
+end)
+%>
 <style>
+
+.dis_area1,.dis_area2,.dis_area3,.dis_area4{
+text-align: center;
+display: inline-block;
+border: 1px solid black;
+width : 24%;
+height: 300px;
+float: left;
+position: relative;
+pointer-events:none;
+}
 
 .area1, .area2, .area3, .area4{
 text-align: center;
@@ -27,26 +48,26 @@ position: relative;
 <div>
     <h1>エリア選択</h1>
     <div>
-        <a href="/game/stage/1">
-        <div class="area1">
+        <a href='<%="/game/stage/"<>@id<>"/1"%>'>
+        <div class="<%= class1 %>">
             エリア1: elixir基本
         </div>
         </a>
 
-        <a href="/game/stage/2">
-        <div class="area2">
+        <a href='<%="/game/stage/"<>@id<>"/2"%>'>
+        <div class="<%= class2 %>">
             エリア2: Enumモジュール
         </div>
         </a>
 
-        <a href="/game/stage/3">
-        <div class="area3">
+        <a href='<%="/game/stage/"<>@id<>"/3"%>'>
+        <div class="<%= class3 %>">
             エリア3: Stringモジュール
         </div>
         </a>
 
-        <a href="/game/stage/4">
-        <div class="area4">
+        <a href='<%="/game/stage/"<>@id<>"/4"%>'>
+        <div class="<%= class4 %>">
             エリア4: Listモジュール
         </div>
         </a>
@@ -55,3 +76,7 @@ position: relative;
     <%=button "タイトル画面へ", to: "/game/start", method: :get%>
 </div>
 </body>
+
+<audio autoplay loop id="audio">
+    <source src= "https://wingless-seraph.net/material/Sky-Airship.mp3" type="audio/mp3">
+</audio>

@@ -23,4 +23,14 @@ defmodule TypingMaojoWeb.MakeList do
         list_up(area,stage)
         |>length()
     end
+
+    def list_up_result(area,stage) do
+        CsvRead.read_CSV
+        |> Enum.map(&[&1["Area"],&1["Stage"],&1["Sentence"],&1["Return"]])
+        |> Enum.filter(fn [a,s,_t,_r] ->
+            a==area and s == stage
+        end)
+    end
+
+
 end

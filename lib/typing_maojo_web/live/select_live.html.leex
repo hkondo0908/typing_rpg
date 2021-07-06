@@ -3,8 +3,12 @@
     [f1,f2,f3] = @flag
     ch1 = String.split(ch1,"\n")
     |>Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
-
+    ch2 = String.split(ch2,"\n")
+    |>Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
+    ch3 = String.split(ch3,"\n")
+    |>Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
 %>
+
 <style>.chara1, .chara2,.chara3{
 font-family: impact;
 text-align: center;
@@ -81,4 +85,51 @@ input[type="text"]{
         <% end %>
     </div>
 
+<div class="wrapper">
+    <div class="contents-select">
+        <p class="title-select">データを選択</p>
+        <div class="data-box" phx-click="start" phx-value-id="1" phx-value-bool="<%= b1%>">
+            <div class="data-num">データ 1</div>
+            <div class="data-info">
+                <%= ch1 %>
+                <%= if f1 do %>
+                    <form phx-submit="submit">
+                        <input type="text" name="name" placeholder="名前を入力してください" required>
+                        <input type="hidden" name="id" value="1">
+                        <input type="submit" value="決定">
+                    </form>
+                <% end %>
+            </div>
+        </div>
+        <div class="data-box" phx-click="start" phx-value-id="2" phx-value-bool="<%= b2%>">
+            <div class="data-num">データ 2</div>
+            <div class="data-info">
+                <%= ch2 %>
+                <%= if f2 do %>
+                    <form phx-submit="submit">
+                        <input type="text" name="name" placeholder="名前を入力してください" required>
+                        <input type="hidden" name="id" value="2">
+                        <input type="submit" value="決定">
+                    </form>
+                <% end %>
+            </div>
+        </div>
+        <div class="data-box" phx-click="start" phx-value-id="3" phx-value-bool="<%= b3%>">
+            <div class="data-num">データ 3</div>
+            <div class="data-info">
+                <%= ch3 %>
+                <%= if f3 do %>
+                    <form phx-submit="submit">
+                        <input type="text" name="name" placeholder="名前を入力してください" required>
+                        <input type="hidden" name="id" value="3">
+                        <input type="submit" value="決定">
+                    </form>
+                <% end %>
+            </div>
+        </div>
+    </div>
 </div>
+
+<audio autoplay loop id="audio">
+    <source src= "https://wingless-seraph.net/material/far-east-kingdom.mp3" type="audio/mp3">
+</audio>

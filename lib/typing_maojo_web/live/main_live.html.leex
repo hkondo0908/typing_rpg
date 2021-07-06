@@ -1,14 +1,16 @@
 
-<div class="wrapper">
+<div class="wrapper main-background">
+
   <div class="top">
     <div class="top-left">
       <p>escキーで一時中断</p>
+      <%= button "ステージ選択画面へ", to: "/game/stage/"<>"#{@id}/#{@area}/", method: :get %>
     </div>
     <div class="top-center">
       <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
     </div>
     <div class="top-right">
-      <p>残り時間 00:<%= 60 - @time %></p>
+      <p>残り時間 <span class="bold"><%= 60 - @time %></span> 秒</p>
       <p><%=@sentence_at + 1 %>問目/<%=@max %>問</p>
     </div>
   </div>
@@ -18,40 +20,60 @@
     <div class="input-box">
       <div phx-window-keydown="type" class="typing-box">
         <%=@sentence%><br>
-        <span class="typed"><%=@typed%></span><span class="silver"><%=@remain%></span><br>
+        <%= if @missflag do %>
+          <span class="typed"><%=@typed%></span><span class="blink"><%=@remain%></span><br>
+        <% else %>
+          <span class="typed"><%=@typed%></span><span class="silver"><%=@remain%></span><br>
+        <% end %>
       </div>
       <div class="hp-box">
         HP: <%= 10- @error_count %>
+        <div class="hp-bar">
+          <%= for _ <- 1..(10 - @error_count) do %>
+            <div class="hp-bar-inside"></div>
+          <% end %>
+        </div>
       </div>
     </div>
-
   </div>
-  <%= if !@startflag do %>
-    <div class="start-background">
-      <div class="start-message">
-        <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
-        <p>全10問</p>
-        <p>制限時間 60秒</p>
-        <p>HP 10</p>
-        <p>※ミスタイプをするとHPが1減ります。HPが0になったらゲームオーバーです。</p>
-        <p>Spaceキーを押すと始まります。</p>
-      </div>
-    </div>
-    </div>
-  <% end %>
 
-  <%= if @escflag do %>
-    <div class="start-background">
-      <div class="start-message">
-        <p>一時中断中。escキーで再開します。</p>
-      </div>
-    </div>
-  <% end %>
 
-  <br>
-  <br>
-  hp: <%= 10- @error_count %><br>
-  time:<%=  60 - @time %><br>
-  <%= button "ステージ選択画面へ", to: "/game/stage/"<>@area, method: :get %>
-  <p>*escキーで一時中断*</p>
-  </body>
+
+</div>
+
+<%= if !@startflag do %>
+  <div class="start-background">
+    <div class="start-message">
+      <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
+      <p>全10問</p>
+      <p>制限時間 60秒</p>
+      <p>HP 10</p>
+      <p>※ミスタイプをするとHPが1減ります。HPが0になったらゲームオーバーです。</p>
+      <p>Spaceキーを押すと始まります。</p>
+    </div>
+  </div>
+<% end %>
+
+<%= if @escflag do %>
+  <div class="start-background">
+    <div class="start-message">
+      <p>一時中断中。escキーで再開します。</p>
+    </div>
+  </div>
+<% end %>
+
+<audio loop id="space">
+    <source src= "https://wingless-seraph.net/material/Battle-Everlasting.mp3" type="audio/mp3">
+</audio>
+
+
+<script>
+  document.addEventListener('keypress', audioPlay);
+  function audioPlay(e) {
+    if (e.keyCode == 32){
+      document.getElementById('space').play();
+    }
+    document.removeEventListener('keypress', audioPlay);
+    return false;
+  }
+</script>

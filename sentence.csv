@@ -1,4 +1,4 @@
-Sentence,return,Area,Stage
+Sentence,Return,Area,Stage
 |>,,1,1
 if,,1,1
 defmodule,,1,1
@@ -53,7 +53,7 @@ valid?,,3,1
 "String.downcase(""123 XPTO"")","""123 xpto""",3,2
 "String.last("""")",nil,3,2
 "String.length(""tnqlh"")",5,3,2
-"String.replace(""f,j,q"", "","", ""-"")","""f-j-q""",3,2
+"String.replace(""f, j, q"", "","", ""-"")","""f-j-q""",3,2
 "String.reverse(""hello world"")","""dlrow olleh""",3,2
 "String.slice(""elixir"", -4..-1)","""ixir""",3,2
 "String.split(""abc"", """", trim: true)","[""a"", ""b"", ""c""]",3,2
@@ -69,9 +69,9 @@ replace_at,,4,1
 to_tuple,,4,1
 zip,,4,1
 to_list,,4,1
-"[1, 5,] ++ [4, 6]","[1, 5, 4, 6]",4,2
+"[1, 5] ++ [4, 6]","[1, 5, 4, 6]",4,2
 "List.delete([:a, :b, :b, :c], :b)","[:a, :b, :c]",4,2
-"hd([9,8,7])",9,4,2
+"hd([9, 8, 7])",9,4,2
 "List.flatten([1, [[2], 3]])","[1, 2, 3]",4,2
 "List.insert_at([1, 2, 3], 10, 0)","[1, 2, 3, 0]",4,2
 "List.keysort([a: 5, c: 1, b: 3], 0)","[a: 5, b: 3, c: 1]",4,2
