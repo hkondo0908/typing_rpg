@@ -38,16 +38,23 @@ span.button{
 
 
 <%
+IO.inspect(@functions)
+
 [result|tail] = String.split(@result,"\n")
 message = Enum.join(tail,"\n")
 
 
 misstypes =
 if @misstypes do
-@misstypes |> String.split("\n") |> Enum.map(&String.split(&1, "$ ", trim: true))
+@misstypes
+|> String.replace(" $", "（スペース）$")
+|> String.split("\n")
+|> Enum.map(&String.split(&1, "$ ", trim: true))
+|> Enum.sort(&(List.last(&1)>= List.last(&2)))
 else
 []
 end
+
 stage_link = "/game/stage/"<>"#{@area}"
 again_link = "/game/main/"<>"#{@area}"<>"/"<>"#{@stage}"
 {next,next_link} =
@@ -124,4 +131,13 @@ end
 <%= button next, to: next_link, method: :get%>
 </span>
 </div>
+</div>
+
+<div>
+<%= for function <- @functions do %>
+<br>打ったお題：<%= List.first(function) %>
+    <%= if List.last(function) != "" do %>
+<br>実行結果：<%= List.last(function) %>
+    <% end %>
+<% end %>
 </div>
