@@ -1,7 +1,6 @@
 <%
 [result|tail] = String.split(@result,"\n")
 message = Enum.join(tail,"\n")
-IO.inspect(@error)
 %>
 <div>
 <h1><%="stage #{@area}-#{@stage} "<>result%></h1>
@@ -13,5 +12,6 @@ IO.inspect(@error)
 </tr>
 misstypes: <%= @misstypes %>
 </table>
-<%= button "ステージ選択に戻る", to: "/game/start", method: :get%>
+<%= button "ステージ選択に戻る", to: "/game/stage/"<>@area, method: :get%>
+<%= button "Try Again", to: "/game/main/"<>@area<>"/"<>@stage %>
 </div>

@@ -23,6 +23,6 @@
 <br>
 hp: <%= 10- @error_count %><br>
 time:<%=  60 - @time %><br>
-<%= button "スタート画面へ", to: "/game/start", method: :get %>
+<%= button "ステージ選択画面へ", to: "/game/stage/"<>@area, method: :get %>
 <p>*escキーで一時中断*</p>
 </body>
