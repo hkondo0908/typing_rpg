@@ -6,19 +6,21 @@
   color: red;
 }
 </style>
+<div phx-window-keydown="type">
 <%=if @startflag do%>
-  <img id="enemy" src="/images/enemy/基本/8.bmp">
-  <div phx-window-keydown="type">
+  <img id="enemy" src="/images/enemy/基本/8.bmp"><br>
       <%= if @escflag do %>
       <p class="red">中断中　escキーで再開</p>
       <% end %>
+      <%=@sentence_at + 1 %>問目/<%=@max %>問<br>
       <%=@sentence%><br>
       <span><%=@typed%></span><span class="silver"><%=@remain%></span><br>
-  </div><br>
+
 
 <% else %>
-<button phx-click="start">start</button>
+Spaceキーでスタート
 <% end %>
+</div><br>
 <br>
 <br>
 hp: <%= 10- @error_count %><br>
