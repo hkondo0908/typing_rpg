@@ -4,6 +4,7 @@
   <div class="top">
     <div class="top-left">
       <p>escキーで一時中断</p>
+      <%= button "ステージ選択画面へ", to: "/game/stage/"<>@area, method: :get %>
     </div>
     <div class="top-center">
       <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
@@ -19,41 +20,43 @@
     <div class="input-box">
       <div phx-window-keydown="type" class="typing-box">
         <%=@sentence%><br>
-        <span class="typed"><%=@typed%></span><span class="silver"><%=@remain%></span><br>
+        <%= if @missflag do %>
+          <span class="typed"><%=@typed%></span><span class="blink"><%=@remain%></span><br>
+        <% else %>
+          <span class="typed"><%=@typed%></span><span class="silver"><%=@remain%></span><br>
+        <% end %>
       </div>
       <div class="hp-box">
         HP: <%= 10- @error_count %>
+        <div class="hp-bar">
+          <%= for i <- 1..(10 - @error_count) do %>
+            <div class="hp-bar-inside"></div>
+          <% end %>
+        </div>
       </div>
     </div>
-
   </div>
-  <%= if !@startflag do %>
-    <div class="start-background">
-      <div class="start-message">
-        <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
-        <p>全10問</p>
-        <p>制限時間 60秒</p>
-        <p>HP 10</p>
-        <p>※ミスタイプをするとHPが1減ります。HPが0になったらゲームオーバーです。</p>
-        <p>Spaceキーを押すと始まります。</p>
-      </div>
-    </div>
-    </div>
-  <% end %>
 
-  <%= if @escflag do %>
-    <div class="start-background">
-      <div class="start-message">
-        <p>一時中断中。escキーで再開します。</p>
-      </div>
+
+</div>
+
+<%= if !@startflag do %>
+  <div class="start-background">
+    <div class="start-message">
+      <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
+      <p>全10問</p>
+      <p>制限時間 60秒</p>
+      <p>HP 10</p>
+      <p>※ミスタイプをするとHPが1減ります。HPが0になったらゲームオーバーです。</p>
+      <p>Spaceキーを押すと始まります。</p>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
-  <br>
-  <br>
-  hp: <%= 10- @error_count %><br>
-  time:<%=  60 - @time %><br>
-  <%= button "ステージ選択画面へ", to: "/game/stage/"<>@area, method: :get %>
-  <p>*escキーで一時中断*</p>
-  </body>
-
+<%= if @escflag do %>
+  <div class="start-background">
+    <div class="start-message">
+      <p>一時中断中。escキーで再開します。</p>
+    </div>
+  </div>
+<% end %>
