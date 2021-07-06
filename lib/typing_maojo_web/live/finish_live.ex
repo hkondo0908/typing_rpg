@@ -9,7 +9,7 @@ defmodule TypingMaojoWeb.FinishLive do
         misstypes = socket.assigns.flash["misstypes"]
         result =
         case socket.assigns.flash["result"] do
-            :completed -> "Congratulations!!\nClear Time: #{time}"
+            :completed -> "Congratulations!!\n#{time}秒"
             :finished -> if socket.assigns.flash["count"] < 10 do
                 "Failed...\nTime is Over!"
             else

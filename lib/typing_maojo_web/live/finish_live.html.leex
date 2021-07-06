@@ -1,6 +1,53 @@
+<style>
+.wrapper{
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url("/images/back/2570345.jpg");
+    width: 50%;
+    padding: 20px;
+}
+h1{
+    text-align: center;
+    font-family: Courier, monospace;
+    font-weight: bold;
+}
+p{
+    text-align: center;
+    font-family: Courier, monospace;
+}
+table{
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+td{
+    font-family: 'Meiryo UI';
+    border: 0px;
+}
+td.line{
+    border-bottom:0.1rem solid #e1e1e1 !important;
+}
+div#button{
+    text-align: center;
+}
+span.button{
+    margin-left: 2px;
+    margin-right: 2px;
+}
+</style>
+
+
 <%
 [result|tail] = String.split(@result,"\n")
 message = Enum.join(tail,"\n")
+
+
+misstypes =
+if @misstypes do
+@misstypes |> String.split("\n") |> Enum.map(&String.split(&1, "$ ", trim: true))
+else
+[]
+end
 stage_link = "/game/stage/"<>"#{@area}"
 again_link = "/game/main/"<>"#{@area}"<>"/"<>"#{@stage}"
 {next,next_link} =
@@ -14,17 +61,67 @@ else
     end
 end
 %>
-<div>
+
+
+
+<div class="wrapper">
 <h1><%="stage #{@area}-#{@stage} "<>result%></h1>
-<p><%=message%></p>
-<table>
+
+<table >
 <tr>
-<td width="5%">Miss:</td>
-<td><%= @error %></td>
+<td class="line">
+    <table >
+        <tr>
+        <td>経験値:</td>
+        <td>4pt</td>
+        </tr>
+        <tr>
+        <td>
+        </td>
+        </tr>
+        <tr>
+        <td>クリアタイム:</td>
+        <td> <%= message %> </td>
+        </tr>
+        <tr>
+        <td>ミス:</td>
+        <td><%= @error %>回</td>
+        </tr>
+    </table>
+</td>
+<td class="line", valign="top">
+    <table>
+        <tr>
+        <td>
+        苦手なキー:
+        </td>
+        <td>
+        </td>
+        </tr>
+        <%= for misstype <- misstypes do %>
+        <tr>
+        <td>
+        <%= List.first(misstype) %>
+        </td>
+        <td>
+        <%= List.last(misstype) %>回
+        </td>
+        </tr>
+        <% end %>
+    </table>
+</td>
 </tr>
-misstypes: <%= @misstypes %>
 </table>
-<%= button "Try Again", to: again_link, method: :get %>
-<%= button next, to: next_link, method: :get%>
+
+<div id="button">
+<span class="button">
 <%= button "ステージ選択に戻る", to: stage_link, method: :get%>
+</span>
+<span class="button">
+<%= button "もう一度挑戦する", to: again_link, method: :get%>
+</span>
+<span class="button">
+<%= button next, to: next_link, method: :get%>
+</span>
+</div>
 </div>

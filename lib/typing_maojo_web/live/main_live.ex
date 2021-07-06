@@ -134,7 +134,7 @@ defmodule TypingMaojoWeb.MainLive do
         misstypes
         |> Enum.frequencies()
         |> Map.to_list()
-        |> Enum.map(fn {k, v} ->  "#{k}: #{v}" end)
+        |> Enum.map(fn {k, v} ->  "#{k}$ #{v}" end)
         |> Enum.join("\n")
 
         put_flash(socket,:result,atom)
