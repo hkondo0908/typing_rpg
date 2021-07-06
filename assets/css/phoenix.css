@@ -105,4 +105,28 @@ img#enemy{
   width: 150px;
 }
 
+div.area1 {
+  background-image: url('/images/back-grounds/草原.png'); 
+  background-size: cover; 
+  background-position: center;
+}
+
+div.area2 {
+  background-image: url('/images/back-grounds/荒原.jpg'); 
+  background-size: cover; 
+  background-position: center;
+}
+
+div.area3 {
+  background-image: url('/images/back-grounds/森.png'); 
+  background-size: cover; 
+  background-position: center;
+}
+
+div.area4 {
+  background-image: url('/images/back-grounds/城.jpg'); 
+  background-size: cover; 
+  background-position: center;
+}
+
 

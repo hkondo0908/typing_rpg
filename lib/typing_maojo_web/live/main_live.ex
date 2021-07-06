@@ -1,7 +1,7 @@
 defmodule TypingMaojoWeb.MainLive do
     use Phoenix.LiveView
     use Phoenix.HTML
-    import TypingMaojoWeb.ErrorHelpers
+    import TypingMaojoWeb.ErrorHelpers, warn: false
     alias TypingMaojoWeb.MakeList
 
     def mount(%{"stage"=> stage, "area" => area},_session,socket) do
@@ -26,6 +26,12 @@ defmodule TypingMaojoWeb.MainLive do
     end
 
     def handle_event("type",%{"key"=>key},socket) do
+        socket =
+            if !socket.assigns.startflag and key==" " do
+                assign(socket,startflag: true)
+            else
+                socket
+            end
         new_socket =
             if !socket.assigns.startflag or socket.assigns.escflag, do: socket,
             else: update_sentence(socket,key)
@@ -39,6 +45,7 @@ defmodule TypingMaojoWeb.MainLive do
             stage: stage,
             num: 0,
             time: 0,
+            max: MakeList.list_length(area,stage),
             sentence: MakeList.ex_sentence(area,stage,0),
             typed: "",
             remain: MakeList.ex_sentence(area,stage,0),
@@ -70,7 +77,8 @@ defmodule TypingMaojoWeb.MainLive do
             sentence_at: at,
             sentence: sentence,
             num: number,
-            error_count: error
+            error_count: error,
+            max: max
         }
         = socket.assigns
 
@@ -80,7 +88,7 @@ defmodule TypingMaojoWeb.MainLive do
 
         if key == expected_key do
             if number == sentence_len do
-                if at == MakeList.list_length(area,stage) - 1 do
+                if at == max - 1 do
                     game_finish(socket,:completed)
                 else
                     new_sentence = MakeList.ex_sentence(area,stage,at+1)
@@ -118,7 +126,7 @@ defmodule TypingMaojoWeb.MainLive do
             error_count: error,
             time: time,
             sentence_at: at,
-            misstypes: misstypes
+            misstypes: misstypes,
         }
         =socket.assigns
 

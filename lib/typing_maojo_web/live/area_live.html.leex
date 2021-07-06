@@ -8,7 +8,7 @@ text-align: center;
 display: inline-block;
 border: 1px solid green;
 width : 50%;
-height: 300px;
+height: 400px;
 float: left;
 position: relative;
 }
@@ -24,19 +24,36 @@ position: relative;
   width: calc(100% - 6px);
   height: calc(100% - 6px);
 }
+
+.stage1{
+    background: url("/images/back-grounds/<%=@area%>-1.jpg");
+    background-size: cover;
+    background-position: top;
+}
+
+.stage2{
+    background: url("/images/back-grounds/<%=@area%>-2.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+
 </style>
 <div>
-    <h1>エリア選択</h1>
+    <h1>エリア<%=@area %>: ステージ選択</h1>
     <div>
         <a href="<%=str1%>">
         <div class="stage1">
-            エリア1
+            ステージ1
         </div>
         </a>
-    
+
         <a href="<%=str2%>">
         <div class="stage2">
-            エリア2
+
+            ステージ2
         </div>
         </a>
+    </div>
+    <a href="/game/area">エリア選択画面に戻る</a>
 </div>
