@@ -42,7 +42,7 @@ defmodule TypingMaojoWeb.SelectLive do
   end
   def handle_event("submit",%{"name"=>name,"id"=>id},socket) do
     CsvRead.chara_new(id,name)
-    {:noreply,socket}
+    {:noreply,redirect(socket,to: "/game/area/#{id}")}
   end
 
 end

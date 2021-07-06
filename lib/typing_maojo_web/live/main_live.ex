@@ -25,13 +25,18 @@ defmodule TypingMaojoWeb.MainLive do
         {:noreply,socket}
     end
 
-    def handle_event("type",%{"key"=>key},socket) do
+    def handle_event("type",%{"key"=>" "},socket) do
         socket =
-            if !socket.assigns.startflag and key==" " do
-                assign(socket,startflag: true)
-            else
-                socket
-            end
+        if !socket.assigns.startflag do
+            assign(socket,startflag: true)
+        else
+            if socket.assigns.escflag, do: socket,
+            else: update_sentence(socket," ")
+        end
+        {:noreply, socket}
+    end
+
+    def handle_event("type",%{"key"=>key},socket) do
         new_socket =
             if !socket.assigns.startflag or socket.assigns.escflag, do: socket,
             else: update_sentence(socket,key)
