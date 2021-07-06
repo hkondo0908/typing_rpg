@@ -38,7 +38,7 @@ span.button{
 
 
 <%
-[result|tail] = String.split(@result,"\n")
+[result|tail] = String.split(@context,"\n")
 message = Enum.join(tail,"\n")
 
 
@@ -48,14 +48,14 @@ if @misstypes do
 else
 []
 end
-stage_link = "/game/stage/"<>"#{@area}"
-again_link = "/game/main/"<>"#{@area}"<>"/"<>"#{@stage}"
+stage_link = "/game/stage/"<>"#{@id}/#{@area}"
+again_link = "/game/main/"<>"#{@id}/#{@area}/#{@stage}"
 {next,next_link} =
 if @stage == "1" do
-    {"次のステージへ","/game/main/"<>"#{@area}"<>"/"<>"2"}
+    {"次のステージへ","/game/main/"<>"#{@id}/#{@area}/2"}
 else
     if @area != "4" do
-        {"次のエリアへ","/game/stage/"<>"#{String.to_integer(@area) + 1}"}
+        {"次のエリアへ","/game/stage/"<>"#{@id}/#{String.to_integer(@area) + 1}"}
     else
         {"タイトルに戻る","/game/start/"}
     end
@@ -120,8 +120,10 @@ end
 <span class="button">
 <%= button "もう一度挑戦する", to: again_link, method: :get%>
 </span>
+<%= if @result == :completed do%>
 <span class="button">
 <%= button next, to: next_link, method: :get%>
 </span>
+<% end %>
 </div>
 </div>

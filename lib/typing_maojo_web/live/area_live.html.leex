@@ -1,8 +1,33 @@
 <%
-str1 = "/game/main/"<>@area<>"/1"
-str2 = "/game/main/"<>@area<>"/2"
+str1 = "/game/main/"<>@id<>"/"<>@area<>"/1"
+str2 = "/game/main/"<>@id<>"/"<>@area<>"/2"
+{class1,class2}=
+if String.to_integer(@area) > String.to_integer(@cleared_area) + 1 do
+    {"dis_stage1","dis_stage2"}
+else
+    if String.to_integer(@area) < String.to_integer(@cleared_area) + 1 do
+        {"stage1","stage2"}
+    else
+        if @cleared_stage == "0" do
+            {"stage1","dis_stage2"}
+        else
+            {"stage1","stage2"}
+        end
+    end
+end
 %>
 <style>
+.dis_stage1, .dis_stage2{
+text-align: center;
+display: inline-block;
+border: 1px solid black;
+width : 50%;
+height: 400px;
+float: left;
+position: relative;
+pointer-events:none;
+}
+
 .stage1, .stage2{
 text-align: center;
 display: inline-block;
@@ -43,17 +68,17 @@ position: relative;
     <h1>エリア<%=@area %>: ステージ選択</h1>
     <div>
         <a href="<%=str1%>">
-        <div class="stage1">
+        <div class="<%=class1 %>">
             ステージ1
         </div>
         </a>
 
         <a href="<%=str2%>">
-        <div class="stage2">
+        <div class="<%= class2%>">
 
             ステージ2
         </div>
         </a>
     </div>
-    <%= button "エリア選択画面に戻る", to: "/game/area/"<>"1", method: :get%>
+    <%= button "エリア選択画面に戻る", to: "/game/area/#{@id}", method: :get%>
 </div>
