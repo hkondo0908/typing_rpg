@@ -33,7 +33,7 @@ defmodule TypingMaojoWeb.MainLive do
     end
 
     defp first_socket(socket,area,stage) do
-        value = 
+        value =
         [
             area: area,
             stage: stage,
@@ -84,7 +84,7 @@ defmodule TypingMaojoWeb.MainLive do
                     game_finish(socket,:completed)
                 else
                     new_sentence = MakeList.ex_sentence(area,stage,at+1)
-                    assign(socket, 
+                    assign(socket,
                     [
                         sentence: new_sentence,
                         num: 0,
