@@ -1,3 +1,5 @@
+<% IO.puts(@missflag) %>
+<body>
 <div class="wrapper">
   <div class="main-background">
 
@@ -18,7 +20,7 @@
     <div class="contents-main">
       <img class="enemy" src="/images/enemy/<%=@area%>/<%=@enemy %>.bmp">
       <div class="input-box">
-        <div phx-window-keydown="type" class="typing-box">
+        <div id="type" phx-window-keydown="type" class="typing-box">
           <%=@sentence%><br>
           <%= if @missflag do %>
             <span class="typed"><%=@typed%></span><span class="blink"><%=@remain%></span><br>
@@ -61,6 +63,7 @@
     </div>
   </div>
 <% end %>
+</body>
 
 <audio autoplay loop id="space">
     <source src= "https://wingless-seraph.net/se/HeartBeat-long_slow.wav" type="audio/wav">
@@ -74,9 +77,11 @@
 <audio id="click">
     <source src= "https://wingless-seraph.net/se/kettei-01.wav" type="audio/wav">
 </audio>
-<audio id="misstype">
+<%= if @missflag do%>
+<audio autoplay id="misstype">
   <source src= "https://wingless-seraph.net/se/cancel-02.wav" type="audio/wav">
 </audio>
+<% end %>
 
 <script>
   document.addEventListener('keypress', audioPlay);
@@ -97,17 +102,4 @@
           TARGET.muted = true;
         }
       }
-</script>
-<%IO.puts(@remain) %>
-<script>
- var char = "<%=String.at(@sentence,@num)%>";
- var sentence = "<%= @remain %>";
-  document.addEventListener('keydown', function (e) {
-    if (e.key == char){
-      document.getElementById('misstype').play();
-    }
-    console.log(e.key);
-    console.log(char);
-    console.log(sentence);
-  });
 </script>

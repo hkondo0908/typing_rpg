@@ -15,6 +15,10 @@ defmodule TypingMaojoWeb.MainLive do
         {:noreply, update_socket(socket)}
     end
 
+    def handle_info(:miss, socket) do
+        {:noreply, assign(socket, missflag: false)}
+    end
+
     def handle_event("start", _,socket) do
         {:noreply, update(socket, :startflag, & !&1)}
     end
@@ -23,7 +27,7 @@ defmodule TypingMaojoWeb.MainLive do
         {:noreply, update(socket, :escflag, & !&1)}
     end
 
-    def handle_event("type",%{"key"=>"Shift"},socket) do
+    def handle_event("type",%{"key"=>key},socket) when key in ["Shift","Enter","BackSpace"] do
         {:noreply,socket}
     end
 
@@ -135,6 +139,7 @@ defmodule TypingMaojoWeb.MainLive do
             if error == 9 do
                 game_finish(socket, :failed)
             else
+                :timer.send_after(1000,:miss)
                 socket
             end
 
