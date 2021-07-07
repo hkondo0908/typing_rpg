@@ -46,4 +46,20 @@ defmodule TypingMaojoWeb.CsvRead do
       |> File.write(levels)
     end
 
+    def read_level do
+      Path.expand("leveling.csv")
+      |> File.stream!
+      |> CSV.Decoding.Decoder.decode(headers: true)
+      |> Enum.to_list()
+      |> Keyword.get_values(:ok)
+    end
+
+    def read_stages do
+      Path.expand("stages.csv")
+      |> File.stream!
+      |> CSV.Decoding.Decoder.decode(headers: true)
+      |> Enum.to_list()
+      |> Keyword.get_values(:ok)
+    end
+
 end

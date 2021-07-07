@@ -1,12 +1,19 @@
 defmodule TypingMaojoWeb.MakeList do
     alias TypingMaojoWeb.CsvRead
     def list_up(area,stage) do
+        length =
+            if stage == "1" do
+                10
+            else
+                5
+            end
         CsvRead.read_CSV
         |> Enum.map(&[&1["Area"],&1["Stage"],&1["Sentence"]])
         |> Enum.filter(fn [a,s,_t] ->
             a==area and s == stage
         end)
-
+        |> Enum.shuffle()
+        |> Enum.take(length)
     end
 
     def ex_sentence(area,stage,number) do

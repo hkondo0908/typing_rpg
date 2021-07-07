@@ -44,17 +44,22 @@ defmodule TypingMaojoWeb.MainLive do
     end
 
     defp first_socket(socket,area,stage,id) do
+        sentence_list = MakeList.list_up(area,stage)
+        |> Enum.map(fn [_,_,s] ->
+           s
+        end)
         value =
         [
+            sentence_list: sentence_list,
             id: id,
             area: area,
             stage: stage,
             num: 0,
             time: 0,
-            max: MakeList.list_length(area,stage),
-            sentence: MakeList.ex_sentence(area,stage,0),
+            max: length(sentence_list),
+            sentence: Enum.at(sentence_list,0),
             typed: "",
-            remain: MakeList.ex_sentence(area,stage,0),
+            remain: Enum.at(sentence_list,0),
             sentence_at: 0,
             error_count: 0,
             escflag: false,
@@ -80,27 +85,29 @@ defmodule TypingMaojoWeb.MainLive do
 
     def update_sentence(socket,key) do
         %{
-            area: area,
-            stage: stage,
             sentence_at: at,
             sentence: sentence,
+            sentence_list: sentence_list,
             num: number,
             error_count: error,
             max: max
         }
         = socket.assigns
 
+
         socket = assign(socket, missflag: false)
         expected_key = String.at(sentence,number)
-        sentence_len = MakeList.sentence_length(area,stage,at)
+        sentence_len = String.length(sentence)
         {typed,remain} = String.split_at(sentence,number+1)
 
         if key == expected_key do
-            if number == sentence_len do
+            if number == sentence_len - 1 do
                 if at == max - 1 do
-                    game_finish(socket,:completed)
+                    update(socket,:sentence_at, &(&1 + 1))
+                    |> game_finish(:completed)
                 else
-                    new_sentence = MakeList.ex_sentence(area,stage,at+1)
+                    new_sentence =
+                    Enum.at(sentence_list,at+1)
                     assign(socket,
                     [
                         sentence: new_sentence,
@@ -154,7 +161,7 @@ defmodule TypingMaojoWeb.MainLive do
         put_flash(socket,:result,atom)
         |> put_flash(:error,error)
         |> put_flash(:time,time)
-        |> put_flash(:count, at + 1)
+        |> put_flash(:count, at)
         |> put_flash(:misstypes, misstypes)
         |> redirect(to: "/game/finish/#{id}/#{area}/#{stage}")
     end
