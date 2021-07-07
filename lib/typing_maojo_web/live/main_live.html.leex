@@ -10,7 +10,7 @@
       <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
     </div>
     <div class="top-right">
-      <p>残り時間 <span class="bold"><%= 60 - @time %></span> 秒</p>
+      <p>残り時間 <span class="bold"><%= String.to_integer(@stage)*60 - @time %></span> 秒</p>
       <p><%=@sentence_at + 1 %>問目/<%=@max %>問</p>
     </div>
   </div>
@@ -46,7 +46,7 @@
     <div class="start-message">
       <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
       <p>全10問</p>
-      <p>制限時間 60秒</p>
+      <p>制限時間  <%= String.to_integer(@stage)*60 %> 秒</p>
       <p>HP 10</p>
       <p>※ミスタイプをするとHPが1減ります。HPが0になったらゲームオーバーです。</p>
       <p>Spaceキーを押すと始まります。</p>
@@ -65,15 +65,17 @@
 <audio loop id="space">
     <source src= "https://d2jgqv5lub48kt.cloudfront.net/vol5/01/mp3/03.mp3" type="audio/mp3">
 </audio>
-
+<audio id="click">
+    <source src= "https://wingless-seraph.net/se/kettei-01.wav" type="audio/wav">
+</audio>
 
 <script>
-  document.addEventListener('keypress', audioPlay);
-  function audioPlay(e) {
+  document.addEventListener('keypress', spaceAudioPlay);
+  function spaceAudioPlay(e) {
     if (e.keyCode == 32){
       document.getElementById('space').play();
     }
-    document.removeEventListener('keypress', audioPlay);
+    document.removeEventListener('keypress', spaceAudioPlay);
     return false;
   }
 </script>

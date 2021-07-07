@@ -139,6 +139,27 @@ div.area4 {
   background-position: center;
 }
 
+
+div.dis_area2 {
+  background-image: url('/images/back-grounds/森2.png');
+  background-size: cover; 
+  background-position: center;
+}
+
+
+div.dis_area3 {
+  background-image: url('/images/back-grounds/荒原2.png');
+  background-size: cover; 
+  background-position: center;
+}
+
+
+div.dis_area4 {
+  background-image: url('/images/back-grounds/城2.png');
+  background-size: cover; 
+  background-position: center;
+}
+
 span.message{
   display:inline-block;
   text-align: left;

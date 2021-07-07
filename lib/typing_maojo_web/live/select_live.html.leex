@@ -124,3 +124,25 @@
 <audio autoplay loop id="audio">
     <source src= "https://wingless-seraph.net/material/far-east-kingdom.mp3" type="audio/mp3">
 </audio>
+<audio id="click">
+    <source src= "https://wingless-seraph.net/se/kettei-01.wav" type="audio/wav">
+</audio>
+<a onclick="mute();"><img src = "/images/icon/音量アイコン.png"></a>
+<a onclick="volume(0.5);"><img src = "/images/icon/可愛いスピーカーアイコン.png"></a>
+<script>
+    var TARGET = document.getElementById('audio');
+      function mute(){
+        if(TARGET.muted){
+          TARGET.muted = false;
+        }else{
+          TARGET.muted = true;
+        }
+      }
+      function volume(Num){
+        if(TARGET.volume == Num){
+          TARGET.volume = Num + 0.5;
+        }else{
+          TARGET.volume = Num;
+        }
+      }
+</script>
