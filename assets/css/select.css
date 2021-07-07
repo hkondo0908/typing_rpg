@@ -1,4 +1,3 @@
-
 .chara1:hover:after,.chara2:hover:after,.chara3:hover:after{
   content: "";
   border: solid 1px yellow;
@@ -10,6 +9,11 @@
 }
 input[type="text"]{
   width: 30%;
+}
+
+div.wrapper{
+  font-family : 'RocknRoll One', sans-serif;
+
 }
 
 .contents-select {
