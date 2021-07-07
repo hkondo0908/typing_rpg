@@ -3,8 +3,7 @@ defmodule TypingMaojoWeb.FinishLive do
     use Phoenix.HTML
     alias TypingMaojoWeb.ListCharas
     alias TypingMaojoWeb.MakeList
-    alias TypingMaojoWeb.Levels
-    alias TypingMaojoWeb.Stages
+
     def mount(%{"id"=>id,"area"=>area,"stage"=>stage},_session,socket) do
         {:ok,first_socket(id,area,stage,socket)}
     end
@@ -16,11 +15,13 @@ defmodule TypingMaojoWeb.FinishLive do
     end
 
     defp first_socket(id,area,stage,socket) do
+        IO.inspect(socket)
         time = socket.assigns.flash["time"]
         error = socket.assigns.flash["error"]
         misstypes = socket.assigns.flash["misstypes"]
         result = socket.assigns.flash["result"]
         count = socket.assigns.flash["count"]
+        exp = socket.assigns.flash["exp"]
         context =
         case result do
             :completed -> "クリア!!\n#{time}秒"
@@ -37,8 +38,6 @@ defmodule TypingMaojoWeb.FinishLive do
         end
         functions = ex_functions(area, stage, count)
 
-        exp = (Stages.find_exp(area,stage)) * count
-        Levels.level_up(id,to_string(exp))
         %{"経験値" => exp_now, "レベル" => level_now} = ListCharas.find_chara(id)
 
         assign(socket,[

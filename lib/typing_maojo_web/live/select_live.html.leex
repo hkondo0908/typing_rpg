@@ -1,86 +1,105 @@
 <%
-    [[b1,ch1],[b2,ch2],[b3,ch3]] = @charas
-    [f1,f2,f3] = @flag
+    [ch1,ch2,ch3] = @charas
     ch1 = String.split(ch1,"\n")
-    |>Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
+    |>Enum.map(&String.split(&1,"\t"))
     ch2 = String.split(ch2,"\n")
-    |>Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
+    |>Enum.map(&String.split(&1,"\t"))
     ch3 = String.split(ch3,"\n")
-    |>Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
+    |>Enum.map(&String.split(&1,"\t"))
     IO.inspect(ch3)
 %>
 <div class="wrapper">
     <div class="contents-select">
         <p class="title-select">データを選択</p>
-        <div class="data-box" phx-click="select" phx-value-id="1" phx-value-bool="<%= b1%>">
+        <div class="data-box">
             <div class="data-num">データ 1</div>
             <div class="data-info">
-                <%= ch1 %>
-            </div>
-            <%= if f1 do %>
-                    <div class="data-menu">
-
-                        <%= if Enum.at(ch1,0) =="NO DATA" do%>
-                            <div class="data-button" phx-click="start" phx-value-id="1">
-                                はじめから
-                            </div>
-                        <% else %>
-                            <div class="data-button" phx-click="continue" phx-value-id="1">
-                                つづきから
-                            </div>
-                            <div class="data-button" phx-click="delete" phx-value-id="1">
-                                データを消す
-                            </div>
-                        <% end %>
+                <div class="data-table">
+                <%=for elements <- ch1 do %>
+                    <div class="data-column">
+                    <%= for element <- elements do%>
+                    <span>
+                        <%= element %>
+                    </span>
+                    <% end %>
                     </div>
                 <% end %>
+                </div>
+            </div>
+            <div class="data-menu">
+                <%= if Enum.at(Enum.at(ch1,0),0) =="NO DATA" do%>
+                    <div class="data-button" phx-click="start" phx-value-id="1">
+                        はじめから
+                    </div>
+                <% else %>
+                    <div class="data-button" phx-click="continue" phx-value-id="1">
+                        つづきから
+                    </div>
+                    <div class="data-button" phx-click="delete" phx-value-id="1">
+                        データを消す
+                    </div>
+                <% end %>
+            </div>
         </div>
-        <div class="data-box" phx-click="select" phx-value-id="2" phx-value-bool="<%= b2%>">
+        <div class="data-box">
             <div class="data-num">データ 2</div>
             <div class="data-info">
-                <%= ch2 %>
-            </div>
-                    <%= if f2 do %>
-                    <div class="data-menu">
-
-                        <%= if Enum.at(ch2,0) =="NO DATA" do%>
-                            <div class="data-button" phx-click="start" phx-value-id="2">
-                                はじめから
-                            </div>
-                        <% else %>
-                            <div class="data-button" phx-click="continue" phx-value-id="2">
-                                つづきから
-                            </div>
-                            <div class="data-button" phx-click="delete" phx-value-id="2">
-                                データを消す
-                            </div>
-                        <% end %>
+                <div class="data-table">
+                <%=for elements <- ch2 do %>
+                    <div class="data-column">
+                    <%= for element <- elements do%>
+                    <span>
+                        <%= element %>
+                    </span>
+                    <% end %>
                     </div>
                 <% end %>
+                </div>
+            </div>
+            <div class="data-menu">
+                <%= if Enum.at(Enum.at(ch2,0),0) =="NO DATA" do%>
+                    <div class="data-button" phx-click="start" phx-value-id="2">
+                        はじめから
+                    </div>
+                <% else %>
+                    <div class="data-button" phx-click="continue" phx-value-id="2">
+                        つづきから
+                    </div>
+                    <div class="data-button" phx-click="delete" phx-value-id="2">
+                        データを消す
+                    </div>
+                <% end %>
+            </div>
         </div>
-        <div class="data-box" phx-click="select" phx-value-id="3" phx-value-bool="<%= b3%>">
+        <div class="data-box">
             <div class="data-num">データ 3</div>
             <div class="data-info">
-                <%= ch3 %>
-            </div>
-                    <%= if f3 do %>
-                    <div class="data-menu">
-
-                        <%= if Enum.at(ch3,0) =="NO DATA" do%>
-                            <div class="data-button" phx-click="start" phx-value-id="3">
-                                はじめから
-                            </div>
-                        <% else %>
-                            <div class="data-button" phx-click="continue" phx-value-id="3">
-                                つづきから
-                            </div>
-                            <div class="data-button" phx-click="delete" phx-value-id="3">
-                                データを消す
-                            </div>
-                        <% end %>
+                <div  class="data-table">
+                <%=for elements <- ch3 do %>
+                    <div class="data-column">
+                    <%= for element <- elements do%>
+                    <span>
+                        <%= element %>
+                    </span>
+                    <% end %>
                     </div>
                 <% end %>
-
+                </div>
+            </div>
+            <div class="data-menu">
+                <%= if Enum.at(Enum.at(ch3,0),0) =="NO DATA" do%>
+                    <div class="data-button" phx-click="start" phx-value-id="3">
+                        はじめから
+                    </div>
+                <% else %>
+                    <div class="data-button" phx-click="continue" phx-value-id="3">
+                        つづきから
+                    </div>
+                    <div class="data-button" phx-click="delete" phx-value-id="3">
+                        データを消す
+                    </div>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>
@@ -127,7 +146,6 @@
 <audio id="click">
     <source src= "https://wingless-seraph.net/se/kettei-01.wav" type="audio/wav">
 </audio>
-<a onclick="mute();"><img src = "/images/icon/音量アイコン.png"></a>
 <a onclick="volume(0.5);"><img src = "/images/icon/可愛いスピーカーアイコン.png"></a>
 <script>
     var TARGET = document.getElementById('audio');

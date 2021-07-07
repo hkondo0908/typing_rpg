@@ -8,33 +8,16 @@ defmodule TypingMaojoWeb.SelectLive do
     charas =
     CsvRead.read_chara
     |> Enum.map(&[&1["名前"],&1["レベル"],&1["経験値"],&1["到達エリア"]])
-    |> Enum.map(fn [n,l,e,r] ->
+    |> Enum.map(fn [n,l,_e,r] ->
       if l=="" do
         "NO DATA"
       else
-        "name: #{n}\n level: #{l}\n exp: #{e}\n area: #{r}"
-      end
-    end)
-    charas =
-    charas
-    |> Enum.map(fn x ->
-      if x=="NO DATA" do
-        [false , x]
-      else
-        [true , x]
+        "名前:\t #{n}\n レベル\t #{l}\n エリア\t #{String.to_integer(r) + 1}"
       end
     end)
     {:ok,assign(socket,[charas: charas, flag: [false,false,false], status: ""])}
   end
 
-  def handle_event("select",%{"id"=>id},socket) do
-    number = String.to_integer(id)
-    flags =
-    Enum.map(1..3, fn x->
-      x==number
-    end)
-    {:noreply, assign(socket,[flag: flags])}
-  end
   def handle_event("delete",%{"id"=>id},socket) do
     {:noreply,assign(socket,status: "delete",id: id)}
   end

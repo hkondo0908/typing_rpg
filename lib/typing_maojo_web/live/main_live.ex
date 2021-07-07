@@ -3,6 +3,8 @@ defmodule TypingMaojoWeb.MainLive do
     use Phoenix.HTML
     import TypingMaojoWeb.ErrorHelpers, warn: false
     alias TypingMaojoWeb.MakeList
+    alias TypingMaojoWeb.Levels
+    alias TypingMaojoWeb.Stages
 
     def mount(%{"stage"=> stage, "area" => area, "id" => id},_session,socket) do
         connected?(socket) && :timer.send_interval(1000, :update)
@@ -158,10 +160,14 @@ defmodule TypingMaojoWeb.MainLive do
         |> Enum.map(fn {k, v} ->  "#{k}$ #{v}" end)
         |> Enum.join("\n")
 
+        exp = (Stages.find_exp(area,stage)) * at
+        Levels.level_up(id,exp)
+
         put_flash(socket,:result,atom)
         |> put_flash(:error,error)
         |> put_flash(:time,time)
         |> put_flash(:count, at)
+        |> put_flash(:exp, exp)
         |> put_flash(:misstypes, misstypes)
         |> redirect(to: "/game/finish/#{id}/#{area}/#{stage}")
     end
