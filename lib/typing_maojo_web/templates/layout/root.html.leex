@@ -10,23 +10,15 @@
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
 
     <script>
-      document.addEventListener('click', audioPlay);
-      function audioPlay() {
+      document.addEventListener('click', clickAudioPlay);
+      function clickAudioPlay() {
       document.getElementById('click').play();
-      document.removeEventListener('click', audioPlay);
     }
+
     </script>
 
-    <script>
-      document.addEventListener('click', audioPlay);
-      function audioPlay() {
-      document.getElementById('audio').play();
-      document.removeEventListener('click', audioPlay);
-    }
-    </script>
   </head>
   <body>
-
     <!--
     <header>
       <section class="container">
