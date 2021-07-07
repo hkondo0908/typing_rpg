@@ -12,13 +12,13 @@ defmodule TypingMaojoWeb.FinishLive do
         count = socket.assigns.flash["count"]
         context =
         case result do
-            :completed -> "Congratulations!!\n#{time}秒"
+            :completed -> "クリア!!\n#{time}秒"
             :finished -> if count < 10 do
-                "Failed...\nTime is Over!"
+                "失敗...\n時間切れ!"
             else
-                "Congratulations!!"
+                "成功!!"
             end
-            :failed -> "Failed...\nYou are lost..."
+            :failed -> "失敗...\nHP切れ..."
             _ -> "Finished!"
         end
         if result == :completed do

@@ -1,43 +1,3 @@
-<style>
-
-.wrapper{
-    margin-left: auto;
-    margin-right: auto;
-    background-image: url("/images/back/2570345.jpg");
-    width: 50%;
-    padding: 20px;
-}
-h1{
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: bold;
-}
-p{
-    text-align: center;
-    font-family: Courier, monospace;
-}
-table{
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
-td{
-    font-family: 'Meiryo UI';
-    border: 0px;
-}
-td.line{
-    border-bottom:0.1rem solid #e1e1e1 !important;
-}
-div#button{
-    text-align: center;
-}
-span.button{
-    margin-left: 2px;
-    margin-right: 2px;
-}
-</style>
-
-
 <%
 [result|tail] = String.split(@context,"\n")
 
@@ -70,77 +30,68 @@ end
 
 
 
-<div class="wrapper">
-<h1><%="stage #{@area}-#{@stage} "<>result%></h1>
+<div class="wrapper-finish">
+    <h1 class="title-finish"><%="エリア#{@area} ステージ#{@stage} "<>result%></h1>
 
-<table >
-<tr>
-<td class="line">
-    <table >
+    <div class="tables">
+        <div class="result-table table1">
+            <table>
+                <tr>
+                    <td>経験値:</td>
+                    <td>4pt</td>
+                </tr>
+                <tr>
+                    <td>正解数:</td>
+                    <td> <%= @count-1 %> </td>
+                </tr>
+                <tr>
+                    <td>クリアタイム:</td>
+                    <td> <%= message %> </td>
+                </tr>
+                <tr>
+                    <td>ミス:</td>
+                    <td><%= @error %>回</td>
+                </tr>
+            </table>
+        </div>
+        <div class="result-table">
+            <table>
+                <tr>
+                    <td>苦手なキー:</td>
+                    <td></td>
+                </tr>
+                <%= for misstype <- misstypes do %>
+                    <tr>
+                        <td><%= List.first(misstype) %></td>
+                        <td><%= List.last(misstype) %>回</td>
+                    </tr>
+                <% end %>
+            </table>
+        </div>
+    </div>
+
+    <table class="functions">
         <tr>
-        <td>経験値:</td>
-        <td>4pt</td>
+            <th>お題の例文</th>
+            <th>実行結果</th>
         </tr>
-        <tr>
-        <td>正解数:</td>
-        <td> <%= @count-1 %> </td>
-        </tr>
-        <tr>
-        <td>クリアタイム:</td>
-        <td> <%= message %> </td>
-        </tr>
-        <tr>
-        <td>ミス:</td>
-        <td><%= @error %>回</td>
-        </tr>
-    </table>
-</td>
-<td class="line", valign="top">
-    <table>
-        <tr>
-        <td>
-        苦手なキー:
-        </td>
-        <td>
-        </td>
-        </tr>
-        <%= for misstype <- misstypes do %>
-        <tr>
-        <td>
-        <%= List.first(misstype) %>
-        </td>
-        <td>
-        <%= List.last(misstype) %>回
-        </td>
-        </tr>
+        <%= for function <- @functions do %>
+            <tr>
+                <td><%= List.first(function) %></td>
+                <%= if List.last(function) != "" do %>
+                    <td><%= List.last(function) %></td>
+                <% end %>
+            </tr>
         <% end %>
     </table>
-</td>
-</tr>
-</table>
 
-<div id="button">
-<span class="button">
-<%= button "ステージ選択に戻る", to: stage_link, method: :get%>
-</span>
-<span class="button">
-<%= button "もう一度挑戦する", to: again_link, method: :get%>
-</span>
-<%= if @result == :completed do%>
-<span class="button">
-<%= button next, to: next_link, method: :get%>
-</span>
-<% end %>
-</div>
-</div>
-
-<div>
-<%= for function <- @functions do %>
-<br>打ったお題：<%= List.first(function) %>
-    <%= if List.last(function) != "" do %>
-<br>実行結果：<%= List.last(function) %>
-    <% end %>
-<% end %>
+    <div class="buttons-finish">
+        <%= button "ステージ選択に戻る", to: stage_link, method: :get%>
+        <%= button "もう一度挑戦する", to: again_link, method: :get%>
+        <%= if @result == :completed do%>
+            <%= button next, to: next_link, method: :get%>
+        <% end %>
+    </div>
 </div>
 
 <audio autoplay loop id="audio">
