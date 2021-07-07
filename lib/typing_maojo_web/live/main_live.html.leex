@@ -62,21 +62,41 @@
   </div>
 <% end %>
 
-<audi loop id="space">
+<audio autoplay loop id="audio">
+    <source src= "https://wingless-seraph.net/se/HeartBeat-long_slow.wav" type="audio/wav">
+</audio>
+<audio id="space">
+    <source src= "https://wingless-seraph.net/sound/voice/03_nekketsu_before.wav" type="audio/wav">
+</audio>
+<audio id="space2">
     <source src= "https://d2jgqv5lub48kt.cloudfront.net/vol5/01/mp3/03.mp3" type="audio/mp3">
-</audi>
-<audi id="click">
+</audio>
+<audio id="click">
     <source src= "https://wingless-seraph.net/se/kettei-01.wav" type="audio/wav">
-</audi>
-
+</audio>
+<audio id="misstype">
+  <source src= "https://wingless-seraph.net/se/cancel-02.wav" type="audio/wav">
+</audio>
 
 <script>
   document.addEventListener('keypress', audioPlay);
   function audioPlay(e) {
     if (e.keyCode == 32){
+      document.getElementById('audio').pause();
       document.getElementById('space').play();
+      document.getElementById('space2').play();
     }
     document.removeEventListener('keypress', audioPlay);
+    return false;
+  }
+</script>
+
+<script>
+  document.addEventListener('keypress', misstypeAudioPlay);
+  function misstypeAudioPlay() {
+    if (<%= @missflag %>){
+      document.getElementById('misstype').play();
+    }
     return false;
   }
 </script>
