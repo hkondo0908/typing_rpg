@@ -39,6 +39,10 @@ defmodule TypingMaojoWeb.SelectLive do
     {:noreply,assign(socket,status: "delete",id: id)}
   end
 
+  def handle_event("continue",%{"id"=>id},socket) do
+    {:noreply,redirect(socket,to: "/game/area/#{id}")}
+  end
+
   def handle_event("start",%{"id"=>id},socket) do
     {:noreply,assign(socket,status: "new",id: id)}
   end
