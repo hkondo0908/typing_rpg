@@ -70,26 +70,32 @@ position: relative;
 
 
 </style>
-<div>
-    <h1>エリア<%=@area%>: ステージ選択</h1>
+<div class="wrapper">
+
+  <div>
+        <span><h1>エリア<%=@area%>: ステージ選択</h1></span>
     <div>
         <a href="<%=str1%>">
-        <div class="<%=class1 %>">
-            <span class="message">ステージ1:</span>
-        </div>
+            <div class="<%=class1 %>">
+                <span class="message">ステージ1:</span>
+            </div>
         </a>
 
         <a href="<%=str2%>">
-
-        <div class="<%= class2%>">
-
-            <span class="message">ステージ2</span>
-        </div>
+            <div class="<%= class2%>">
+                <span class="message">ステージ2:</span>
+            </div>
         </a>
     </div>
-    <%= button "エリア選択画面に戻る", to: "/game/area/#{@id}", method: :get%>
-</div>
+  </div>
 
+  <div class="textbox">
+    <p class="text">
+    「この世界を知ろうじゃないか」
+    </p>
+  </div>
+ <%= button "エリア選択画面に戻る", to: "/game/area/#{@id}", method: :get%>
+</div>
 
 <audio autoplay loop id="audio">
     <source src= "https://d2jgqv5lub48kt.cloudfront.net/vol3/mp3/06.mp3" type="audio/mp3">
