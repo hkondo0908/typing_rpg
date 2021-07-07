@@ -1,14 +1,17 @@
 .wrapper {
+  padding-top: 50px;
   height: 100vh;
   width: 70vw;
-  margin: 0 auto;
   position: relative;
-  padding-top: 50px;
+  margin: 0 auto;
+  border-left: 2px solid lightgrey;
+  border-right: 2px solid lightgrey;
+  background-color: white;
 }
 
 .main-background {
   height: 100%;
-  padding-top: 40px;
+  padding-top: 30px;
   background-image: url('/images/back-grounds/草原.png');
   background-size: cover;
 }
@@ -26,7 +29,10 @@
 .top-left {
   height: 50px;
   width: 25%;
-  background-color: white;
+  /* background-color: rgba(135, 85, 112, 1); */
+  background-color: rgba(211, 85, 77, 1);
+
+  color: white;
   text-align: center;
 }
 
@@ -38,7 +44,9 @@
 .top-center {
   height: 100px;
   width: 30%;
-  background-color: white;
+  background-color: rgba(211, 85, 77, 1);
+  /* background-color: rgba(135, 85, 112, 1); */
+  color: white;
   text-align: center;
   font-size: 24px;
 }
@@ -49,7 +57,11 @@
 
 .top-right {
   width: 25%;
-  background-color: white;
+  /* background-color: rgba(230, 184, 160, 1); */
+  /* background-color: rgba(135, 85, 112, 1); */
+  background-color: rgba(211, 85, 77, 1);
+
+  color: white;
   text-align: center;
   font-size: 24px;
   padding: 5px;

@@ -39,7 +39,10 @@
       </div>
       <div class="header-right">
         <p>Sound</p>
-        <p>name lv10</p>
+        <%= if Map.has_key?(@conn.assigns, :id) do %>
+          <p>名前: <%= get_name(@conn.assigns.id) %></p>
+          <p>レベル <%= get_level(@conn.assigns.id) %></p>
+        <% end %>
       </div>
     </header>
     <%= @inner_content %>
