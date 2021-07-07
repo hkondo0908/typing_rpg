@@ -67,7 +67,7 @@ defmodule TypingMaojoWeb.MainLive do
     end
 
     defp update_socket(socket) do
-        if socket.assigns.time > 59 do
+        if socket.assigns.time > String.to_integer(socket.assigns.stage)*60-1 do
             game_finish(socket,:finished)
         else
             if !socket.assigns.startflag or socket.assigns.escflag do

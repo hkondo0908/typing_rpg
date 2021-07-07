@@ -9,10 +9,11 @@ defmodule TypingMaojoWeb.FinishLive do
         error = socket.assigns.flash["error"]
         misstypes = socket.assigns.flash["misstypes"]
         result = socket.assigns.flash["result"]
+        count = socket.assigns.flash["count"]
         context =
         case result do
             :completed -> "Congratulations!!\n#{time}秒"
-            :finished -> if socket.assigns.flash["count"] < 10 do
+            :finished -> if count < 10 do
                 "Failed...\nTime is Over!"
             else
                 "Congratulations!!"
@@ -23,8 +24,8 @@ defmodule TypingMaojoWeb.FinishLive do
         if result == :completed do
             ListCharas.update_chara(id,area,stage,"30")
         end
-        functions = ex_functions(area, stage, socket.assigns.flash["count"])
-        {:ok,assign(socket,[context: context,result: result, error: error, misstypes: misstypes, area: area, stage: stage, functions: functions, id: id])}
+        functions = ex_functions(area, stage, count)
+        {:ok,assign(socket,[context: context,result: result, error: error, count: count, misstypes: misstypes, area: area, stage: stage, functions: functions, id: id])}
     end
 
     defp ex_functions(area, stage, count) do

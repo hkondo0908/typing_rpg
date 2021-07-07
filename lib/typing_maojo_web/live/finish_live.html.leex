@@ -1,4 +1,5 @@
 <style>
+
 .wrapper{
     margin-left: auto;
     margin-right: auto;
@@ -8,7 +9,7 @@
 }
 h1{
     text-align: center;
-    font-family: Courier, monospace;
+    font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
 }
 p{
@@ -81,8 +82,8 @@ end
         <td>4pt</td>
         </tr>
         <tr>
-        <td>
-        </td>
+        <td>正解数:</td>
+        <td> <%= @count-1 %> </td>
         </tr>
         <tr>
         <td>クリアタイム:</td>
@@ -144,4 +145,7 @@ end
 
 <audio autoplay loop id="audio">
     <source src= "https://wingless-seraph.net/material/Epilogue.mp3" type="audio/mp3">
+</audio>
+<audio id="click">
+    <source src= "https://wingless-seraph.net/se/kettei-01.wav" type="audio/wav">
 </audio>

@@ -7,53 +7,142 @@
     |>Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
     ch3 = String.split(ch3,"\n")
     |>Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
+    IO.inspect(ch3)
 %>
-
 <div class="wrapper">
     <div class="contents-select">
         <p class="title-select">データを選択</p>
-        <div class="data-box" phx-click="start" phx-value-id="1" phx-value-bool="<%= b1%>">
+        <div class="data-box" phx-click="select" phx-value-id="1" phx-value-bool="<%= b1%>">
             <div class="data-num">データ 1</div>
             <div class="data-info">
                 <%= ch1 %>
-                <%= if f1 do %>
-                    <form phx-submit="submit">
-                        <input type="text" name="name" placeholder="名前を入力してください" required>
-                        <input type="hidden" name="id" value="1">
-                        <input type="submit" value="決定">
-                    </form>
-                <% end %>
             </div>
+            <%= if f1 do %>
+                    <div class="data-menu">
+
+                        <%= if Enum.at(ch1,0) =="NO DATA" do%>
+                            <div class="data-button" phx-click="start" phx-value-id="1">
+                                はじめから
+                            </div>
+                        <% else %>
+                            <div class="data-button" phx-click="continue" phx-value-id="1">
+                                つづきから
+                            </div>
+                            <div class="data-button" phx-click="delete" phx-value-id="1">
+                                データを消す
+                            </div>
+                        <% end %>
+                    </div>
+                <% end %>
         </div>
-        <div class="data-box" phx-click="start" phx-value-id="2" phx-value-bool="<%= b2%>">
+        <div class="data-box" phx-click="select" phx-value-id="2" phx-value-bool="<%= b2%>">
             <div class="data-num">データ 2</div>
             <div class="data-info">
                 <%= ch2 %>
-                <%= if f2 do %>
-                    <form phx-submit="submit">
-                        <input type="text" name="name" placeholder="名前を入力してください" required>
-                        <input type="hidden" name="id" value="2">
-                        <input type="submit" value="決定">
-                    </form>
-                <% end %>
             </div>
+                    <%= if f2 do %>
+                    <div class="data-menu">
+
+                        <%= if Enum.at(ch2,0) =="NO DATA" do%>
+                            <div class="data-button" phx-click="start" phx-value-id="2">
+                                はじめから
+                            </div>
+                        <% else %>
+                            <div class="data-button" phx-click="continue" phx-value-id="2">
+                                つづきから
+                            </div>
+                            <div class="data-button" phx-click="delete" phx-value-id="2">
+                                データを消す
+                            </div>
+                        <% end %>
+                    </div>
+                <% end %>
         </div>
-        <div class="data-box" phx-click="start" phx-value-id="3" phx-value-bool="<%= b3%>">
+        <div class="data-box" phx-click="select" phx-value-id="3" phx-value-bool="<%= b3%>">
             <div class="data-num">データ 3</div>
             <div class="data-info">
                 <%= ch3 %>
-                <%= if f3 do %>
-                    <form phx-submit="submit">
-                        <input type="text" name="name" placeholder="名前を入力してください" required>
-                        <input type="hidden" name="id" value="3">
-                        <input type="submit" value="決定">
-                    </form>
-                <% end %>
             </div>
+                    <%= if f3 do %>
+                    <div class="data-menu">
+
+                        <%= if Enum.at(ch3,0) =="NO DATA" do%>
+                            <div class="data-button" phx-click="start" phx-value-id="3">
+                                はじめから
+                            </div>
+                        <% else %>
+                            <div class="data-button" phx-click="continue" phx-value-id="3">
+                                つづきから
+                            </div>
+                            <div class="data-button" phx-click="delete" phx-value-id="3">
+                                データを消す
+                            </div>
+                        <% end %>
+                    </div>
+                <% end %>
+
         </div>
     </div>
 </div>
 
+<%= if @status=="delete" do %>
+  <div class="start-background">
+    <div class="start-message">
+      <p>データ<%= @id%></p>
+      <p>本当に消しますか？</p>
+      <div class="button-2">
+        <div class="delete-button" phx-click="delete-comp" phx-value-id="<%= @id%>">
+            はい
+        </div><br>
+        <div class="delete-button" phx-click="delete-back" phx-value-id="<%= @id%>">
+            いいえ
+        </div><br>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= if @status=="new" do %>
+  <div class="start-background">
+    <div class="start-message">
+      名前を入力してください
+      <p><form phx-submit="submit">
+            <input type="text" name="name" placeholder="名前を入力してください" required>
+            <input type="hidden" name="id" value="<%= @id %>">
+            <input type="submit" value="決定">
+      </form> </p>
+      <div class="button-2">
+        <div class="delete-button" phx-click="delete-back" phx-value-id="<%= @id%>">
+            戻る
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
 <audio autoplay loop id="audio">
     <source src= "https://wingless-seraph.net/material/far-east-kingdom.mp3" type="audio/mp3">
 </audio>
+<audio id="click">
+    <source src= "https://wingless-seraph.net/se/kettei-01.wav" type="audio/wav">
+</audio>
+<a onclick="mute();"><img src = "/images/icon/音量アイコン.png"></a>
+<a onclick="volume(0.5);"><img src = "/images/icon/可愛いスピーカーアイコン.png"></a>
+<script>
+    var TARGET = document.getElementById('audio');
+      function mute(){
+        if(TARGET.muted){
+          TARGET.muted = false;
+        }else{
+          TARGET.muted = true;
+        }
+      }
+      function volume(Num){
+        if(TARGET.volume == Num){
+          TARGET.volume = Num + 0.5;
+        }else{
+          TARGET.volume = Num;
+        }
+      }
+</script>
