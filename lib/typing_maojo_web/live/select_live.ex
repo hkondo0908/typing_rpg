@@ -7,7 +7,7 @@ defmodule TypingMaojoWeb.SelectLive do
   def mount(_params,_session,socket) do
     charas =
     CsvRead.read_chara
-    |> Enum.map(&[&1["名前"],&1["レベル"],&1["経験値"],&1["到達ステージ"]])
+    |> Enum.map(&[&1["名前"],&1["レベル"],&1["経験値"],&1["到達エリア"]])
     |> Enum.map(fn [n,l,e,r] ->
       if l=="" do
         "NO DATA"
@@ -37,6 +37,10 @@ defmodule TypingMaojoWeb.SelectLive do
   end
   def handle_event("delete",%{"id"=>id},socket) do
     {:noreply,assign(socket,status: "delete",id: id)}
+  end
+
+  def handle_event("continue",%{"id"=>id},socket) do
+    {:noreply,redirect(socket,to: "/game/area/#{id}")}
   end
 
   def handle_event("start",%{"id"=>id},socket) do

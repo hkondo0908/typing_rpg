@@ -71,6 +71,7 @@ end
     </div>
 
     <table class="functions">
+
         <tr>
             <th>お題の例文</th>
             <th>実行結果</th>
@@ -85,6 +86,7 @@ end
         <% end %>
     </table>
 
+
     <div class="buttons-finish">
         <%= button "ステージ選択に戻る", to: stage_link, method: :get%>
         <%= button "もう一度挑戦する", to: again_link, method: :get%>
@@ -92,7 +94,15 @@ end
             <%= button next, to: next_link, method: :get%>
         <% end %>
     </div>
+<span>
+level: <%= @level%>
+</span><br>
+<span>
+exp: <%=@exp %>
+</span>
 </div>
+
+
 
 <audio autoplay loop id="audio">
     <source src= "https://wingless-seraph.net/material/Epilogue.mp3" type="audio/mp3">
