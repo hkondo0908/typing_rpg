@@ -3,10 +3,10 @@
   height: 100vh;
   width: 70vw;
   position: relative;
+  background-color: #f8f8f8;
   margin: 0 auto;
   border-left: 2px solid lightgrey;
   border-right: 2px solid lightgrey;
-  background-color: white;
 }
 
 .main-background {
