@@ -7,9 +7,9 @@ defmodule TypingMaojoWeb.Levels do
   end
 
   def level_up(id,exp) do
-    exp = String.to_integer(exp)
     chara = ListCharas.find_chara(id)
     %{"レベル" => level_now, "経験値" => exp_now } = chara
+    IO.inspect(chara)
     exp_now = String.to_integer(exp_now)
     level_now = String.to_integer(level_now)
     {new_level,new_exp} = find_level(exp,exp_now,level_now)
@@ -28,6 +28,7 @@ defmodule TypingMaojoWeb.Levels do
     if required_exp > exp + exp_now do
       {level_now, exp + exp_now}
     else
+      IO.puts("exp: #{exp}, exp_now: #{exp_now}, level_now: #{level_now}")
       find_level(exp + exp_now - required_exp,0,level_now + 1)
     end
     {level,exp}

@@ -38,11 +38,11 @@ end
             <table>
                 <tr>
                     <td>経験値:</td>
-                    <td>4pt</td>
+                    <td><%= @get_exp%>pt</td>
                 </tr>
                 <tr>
                     <td>正解数:</td>
-                    <td> <%= @count-1 %> </td>
+                    <td> <%= @count %> </td>
                 </tr>
                 <tr>
                     <td>クリアタイム:</td>
@@ -51,6 +51,10 @@ end
                 <tr>
                     <td>ミス:</td>
                     <td><%= @error %>回</td>
+                </tr>
+                <tr>
+                    <td>レベル:</td>
+                    <td><%= @level%></td>
                 </tr>
             </table>
         </div>
@@ -94,12 +98,6 @@ end
             <%= button next, to: next_link, method: :get%>
         <% end %>
     </div>
-<span>
-level: <%= @level%>
-</span><br>
-<span>
-exp: <%=@exp %>
-</span>
 </div>
 
 

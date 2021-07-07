@@ -10,7 +10,6 @@ defmodule TypingMaojoWeb.Stages do
       (&1["Area"] == area and &1["Stage"] == stage)
     )
     |> Enum.at(0)
-    IO.inspect(stage_map)
     String.to_integer(stage_map["Exp"])
   end
 end

@@ -62,13 +62,13 @@
   </div>
 <% end %>
 
-<audio autoplay loop id="audio">
+<audio autoplay loop id="space">
     <source src= "https://wingless-seraph.net/se/HeartBeat-long_slow.wav" type="audio/wav">
 </audio>
-<audio id="space">
+<audio id="space2">
     <source src= "https://wingless-seraph.net/sound/voice/03_nekketsu_before.wav" type="audio/wav">
 </audio>
-<audio id="space2">
+<audio id="audio">
     <source src= "https://d2jgqv5lub48kt.cloudfront.net/vol5/01/mp3/03.mp3" type="audio/mp3">
 </audio>
 <audio id="click">
@@ -82,21 +82,32 @@
   document.addEventListener('keypress', audioPlay);
   function audioPlay(e) {
     if (e.keyCode == 32){
-      document.getElementById('audio').pause();
-      document.getElementById('space').play();
+      document.getElementById('space').pause();
+      document.getElementById('audio').play();
       document.getElementById('space2').play();
     }
     document.removeEventListener('keypress', audioPlay);
-    return false;
   }
-</script>
 
+  var TARGET = document.getElementById('audio');
+      function mute(){
+        if(TARGET.muted){
+          TARGET.muted = false;
+        }else{
+          TARGET.muted = true;
+        }
+      }
+</script>
+<%IO.puts(@remain) %>
 <script>
-  document.addEventListener('keypress', misstypeAudioPlay);
-  function misstypeAudioPlay() {
-    if (<%= @missflag %>){
+ var char = "<%=String.at(@sentence,@num)%>";
+ var sentence = "<%= @remain %>";
+  document.addEventListener('keydown', function (e) {
+    if (e.key == char){
       document.getElementById('misstype').play();
     }
-    return false;
-  }
+    console.log(e.key);
+    console.log(char);
+    console.log(sentence);
+  });
 </script>
