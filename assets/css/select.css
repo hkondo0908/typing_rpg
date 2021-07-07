@@ -8,7 +8,9 @@
   height: calc(100% - 6px);
 }
 input[type="text"]{
-  width: 30%;
+  border: 1px;
+  width: 50%;
+  background: white;
 }
 
 div.wrapper{
@@ -52,3 +54,37 @@ div.wrapper{
 .data-num {
   font-size: 30px;
 }
+
+.data-menu:hover{
+  background-color: rgba(0, 255, 0, 0);
+}
+
+.data-button{
+  margin: 20px;
+  height: 30px;
+  width: 100px;
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+.data-button:hover {
+  cursor: pointer;
+  background-color: white;
+}
+
+.delete-button{
+  height: 30px;
+  width: 100px;
+  text-align: center;
+  background-color: rgba(0, 0, 255, 0.2);
+}
+
+.button-2{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.delete-button:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 255, 1);
+}
+

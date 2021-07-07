@@ -37,7 +37,7 @@ defmodule TypingMaojoWeb.CsvRead do
     end
 
     def level_new() do
-      levels = Enum.map(1..99, fn x->
+      levels = Enum.map(1..100, fn x->
         %{"レベル"=>x,"経験値"=>x}
       end)
       |> CSV.Encoding.Encoder.encode(headers: true)
