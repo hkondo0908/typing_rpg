@@ -36,7 +36,6 @@ width : 50%;
 height: 400px;
 float: left;
 position: relative;
-font-family: "sippori";
 }
 .stage1:hover,.stage2:hover{
     border: 1px solid green;
@@ -68,11 +67,11 @@ font-family: "sippori";
 
 </style>
 <div>
-    <h1>エリア<%=@area %>: ステージ選択</h1>
+    <h1>エリア<%=@area%>: ステージ選択</h1>
     <div>
         <a href="<%=str1%>">
         <div class="<%=class1 %>">
-            <span class="message">ステージ1</span>
+            <span class="message">ステージ1:</span>
         </div>
         </a>
 
@@ -89,5 +88,5 @@ font-family: "sippori";
 
 
 <audio autoplay loop id="audio">
-    <source src= "https://wingless-seraph.net/material/Field-old.mp3" type="audio/mp3">
+    <source src= "https://d2jgqv5lub48kt.cloudfront.net/vol3/mp3/06.mp3" type="audio/mp3">
 </audio>
