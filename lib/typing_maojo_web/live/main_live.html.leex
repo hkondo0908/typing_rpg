@@ -1,42 +1,42 @@
+<div class="wrapper">
+  <div class="main-background">
 
-<div class="wrapper main-background">
-
-  <div class="top">
-    <div class="top-left">
-      <p>escキーで一時中断</p>
-      <%= button "ステージ選択画面へ", to: "/game/stage/"<>"#{@id}/#{@area}/", method: :get %>
-    </div>
-    <div class="top-center">
-      <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
-    </div>
-    <div class="top-right">
-      <p>残り時間 <span class="bold"><%= 60 - @time %></span> 秒</p>
-      <p><%=@sentence_at + 1 %>問目/<%=@max %>問</p>
-    </div>
-  </div>
-
-  <div class="contents">
-    <img class="enemy" src="/images/enemy/<%=@area%>/<%=@enemy %>.bmp">
-    <div class="input-box">
-      <div phx-window-keydown="type" class="typing-box">
-        <%=@sentence%><br>
-        <%= if @missflag do %>
-          <span class="typed"><%=@typed%></span><span class="blink"><%=@remain%></span><br>
-        <% else %>
-          <span class="typed"><%=@typed%></span><span class="silver"><%=@remain%></span><br>
-        <% end %>
+    <div class="top">
+      <div class="top-left">
+        <p>escキーで一時中断</p>
+        <%= button "ステージ選択画面へ", to: "/game/stage/"<>"#{@id}/#{@area}/", method: :get %>
       </div>
-      <div class="hp-box">
-        HP: <%= 10- @error_count %>
-        <div class="hp-bar">
-          <%= for _ <- 1..(10 - @error_count) do %>
-            <div class="hp-bar-inside"></div>
+      <div class="top-center">
+        <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
+      </div>
+      <div class="top-right">
+        <p>残り時間 <span class="bold"><%= 60 - @time %></span> 秒</p>
+        <p><%=@sentence_at + 1 %>問目/<%=@max %>問</p>
+      </div>
+    </div>
+
+    <div class="contents-main">
+      <img class="enemy" src="/images/enemy/<%=@area%>/<%=@enemy %>.bmp">
+      <div class="input-box">
+        <div phx-window-keydown="type" class="typing-box">
+          <%=@sentence%><br>
+          <%= if @missflag do %>
+            <span class="typed"><%=@typed%></span><span class="blink"><%=@remain%></span><br>
+          <% else %>
+            <span class="typed"><%=@typed%></span><span class="silver"><%=@remain%></span><br>
           <% end %>
+        </div>
+        <div class="hp-box">
+          HP: <%= 10- @error_count %>
+          <div class="hp-bar">
+            <%= for _ <- 1..(10 - @error_count) do %>
+              <div class="hp-bar-inside"></div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 
 
 </div>
@@ -62,9 +62,9 @@
   </div>
 <% end %>
 
-<audio loop id="space">
+<audi loop id="space">
     <source src= "https://wingless-seraph.net/material/Battle-Everlasting.mp3" type="audio/mp3">
-</audio>
+</audi>
 
 
 <script>
