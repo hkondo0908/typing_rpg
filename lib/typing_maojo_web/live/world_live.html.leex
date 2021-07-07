@@ -47,6 +47,7 @@ position: relative;
 </style>
 <body>
 <div class="wrapper">
+<div class="area_select">
 <div>
     <h1>エリア選択</h1>
     <div>
@@ -73,20 +74,17 @@ position: relative;
             エリア4: Listモジュール
         </div>
         </a>
-
-
-
     <br>
-
-
 </div>
-<div class="textbox">
-    <p class="text">文章
-    </p>
+</div>
+ <div class="textbox">
+        <p class="text">
+            説明
+        </p>
   </div>
-  <%=button "タイトル画面へ", to: "/game/start", method: :get%>
-</div>
 
+
+ <%=button "タイトル画面へ", to: "/game/start", method: :get%>
 </body>
 
 <audio autoplay loop id="audio">

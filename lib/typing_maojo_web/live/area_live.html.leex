@@ -67,33 +67,74 @@ position: relative;
     background-size: cover;
     background-position: center;
 }
-
-
 </style>
 <div class="wrapper">
 
   <div>
         <span><h1>エリア<%=@area%>: ステージ選択</h1></span>
+
     <div>
         <a href="<%=str1%>">
             <div class="<%=class1 %>">
-                <span class="message">ステージ1:</span>
+                <%= if @area == "1" do %>
+                    <div class="message">ステージ1 : Meadow of elements</div>
+                <%else %>
+
+                    <%= if @area == "2" do %>
+                        <div class="message">ステージ2 : Valley of Enum</div>
+                    <%else %>
+
+                        <%= if @area == "3" do %>
+                            <div class="message">ステージ3 : String's pack</div>
+                        <%else %>
+
+                            <%= if @area == "4" do %>
+                                <div class="message">ステージ4 : Robust list castle</div>
+                            <%end %>
+
+                        <%end %>
+                    <%end %>
+                <%end %>
             </div>
         </a>
 
         <a href="<%=str2%>">
             <div class="<%= class2%>">
-                <span class="message">ステージ2:</span>
+                <%= if @area == "1" do %>
+                    <div class="message">boss</div>
+                <%else %>
+
+                    <%= if @area == "2" do %>
+                        <div class="message">boss</div>
+                    <%else %>
+
+                        <%= if @area == "3" do %>
+                            <div class="message">boss</div>
+                        <%else %>
+
+                            <%= if @area == "4" do %>
+                                <div class="message">boss</div>
+                            <%end %>
+
+                        <%end %>
+                    <%end %>
+                <%end %>
             </div>
         </a>
     </div>
   </div>
 
   <div class="textbox">
-    <p class="text">
-    「この世界を知ろうじゃないか」
-    </p>
+        <p class="text">
+        不死鳥の導きで訪れたのは、見渡す限りの広大な草原でした。<br>
+        若草が風にそよぐなかで、そこかしこで小さな命たちが跳ね回っています。<br>
+        彼らはこの世界をつくる構成要素です。<br>
+        彼らを知ることから、あなたの旅は始まります。<br>
+        「ものは試しだ、やってみよう」<br>
+        不死鳥は楽しそうにうそぶきました。そしてあざやかな切羽を一振り、あなたに呪文を授けます。<br>
+        </p>
   </div>
+
  <%= button "エリア選択画面に戻る", to: "/game/area/#{@id}", method: :get%>
 </div>
 
