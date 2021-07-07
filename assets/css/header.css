@@ -25,3 +25,7 @@ header p {
   display: flex;
   justify-content: space-between;
 }
+
+header a {
+  color: black;
+}

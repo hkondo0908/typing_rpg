@@ -38,10 +38,23 @@
         <%end %>
       </div>
       <div class="header-right">
-        <p>Sound</p>
-        <p>name lv10</p>
+        <a onclick="mute();"><p>Sound</p></a>
+        <%= if Map.has_key?(@conn.assigns, :id) do %>
+          <p>名前: <%= get_name(@conn.assigns.id) %></p>
+          <p>レベル <%= get_level(@conn.assigns.id) %></p>
+        <% end %>
       </div>
     </header>
     <%= @inner_content %>
   </body>
 </html>
+<script>
+    var TARGET = document.getElementById('audio');
+      function mute(){
+        if(TARGET.muted){
+          TARGET.muted = false;
+        }else{
+          TARGET.muted = true;
+        }
+      }
+</script>
