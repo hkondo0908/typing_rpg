@@ -11,7 +11,7 @@ defmodule TypingMaojoWeb.ListCharas do
     |> Enum.at(0)
   end
 
-  def update_chara(id,area,stage,exp) do
+  def update_chara(id,area,stage) do
     chara = find_chara(id)
     %{"到達エリア"=> r_area,"到達ステージ"=> r_stage} = chara
     new_chara =
@@ -32,7 +32,6 @@ defmodule TypingMaojoWeb.ListCharas do
         end
       end
     end
-    new_chara = %{new_chara | "経験値" => exp}
 
     CsvRead.chara_renew(id,new_chara)
   end
