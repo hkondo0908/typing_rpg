@@ -46,6 +46,7 @@ position: relative;
 }
 </style>
 <body>
+<div class="wrapper">
 <div>
     <h1>エリア選択</h1>
     <div>
@@ -73,9 +74,19 @@ position: relative;
         </div>
         </a>
 
+
+
     <br>
-    <%=button "タイトル画面へ", to: "/game/start", method: :get%>
+
+
 </div>
+<div class="textbox">
+    <p class="text">文章
+    </p>
+  </div>
+  <%=button "タイトル画面へ", to: "/game/start", method: :get%>
+</div>
+
 </body>
 
 <audio autoplay loop id="audio">
@@ -84,4 +95,3 @@ position: relative;
 <audio id="click">
     <source src= "https://wingless-seraph.net/se/kettei-01.wav" type="audio/wav">
 </audio>
-
