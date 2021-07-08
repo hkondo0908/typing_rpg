@@ -16,6 +16,27 @@ defmodule TypingMaojoWeb.MakeList do
         |> Enum.take(length)
     end
 
+    def list_up_straight(area,stage) do
+        CsvRead.read_CSV
+        |> Enum.map(&[&1["Area"],&1["Stage"],&1["Sentence"]])
+        |> Enum.filter(fn [a,s,_t] ->
+            a==area and s == stage
+        end)
+        |> Enum.map(fn [_,_,t] ->
+           t
+        end)
+    end
+
+    def list_up_with_index(area,stage) do
+        CsvRead.read_CSV
+        |> Enum.map(&[&1["Area"],&1["Stage"],&1["Sentence"]])
+        |> Enum.filter(fn [a,s,_t] ->
+            a==area and s == stage
+        end)
+        |> Enum.with_index()
+
+    end
+
     def ex_sentence(area,stage,number) do
         list_up(area,stage)
         |> Enum.at(number)

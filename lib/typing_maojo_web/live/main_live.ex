@@ -189,6 +189,7 @@ defmodule TypingMaojoWeb.MainLive do
         |> put_flash(:misstypes, misstypes)
         |> put_flash(:sentence_list, sentence_list)
         |> put_flash(:level_now, level_now)
+        |> put_flash(:list, sentence_list)
         |> redirect(to: "/game/finish/#{id}/#{area}/#{stage}")
     end
 
