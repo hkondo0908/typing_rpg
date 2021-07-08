@@ -38,19 +38,36 @@ end
             <table>
                 <tr>
                     <td>経験値:</td>
+                    <%=if Enum.at(@bools,0) == 0 do%>
                     <td><%= @get_exp%>pt</td>
+                    <% else %>
+                    <td><span class="red">New!</span><%= @get_exp%>pt</td>
+                    <% end %>
+
                 </tr>
                 <tr>
                     <td>正解数:</td>
+                    <%=if Enum.at(@bools,2) == 0 do%>
                     <td> <%= @count %> </td>
+                    <% else %>
+                    <td><span class="red">New!</span><%= @count%></td>
+                    <% end %>
                 </tr>
                 <tr>
                     <td>クリアタイム:</td>
+                    <%=if Enum.at(@bools,3) == 0 do%>
                     <td> <%= message %> </td>
+                    <% else %>
+                    <td><span class="red">New!</span><%= message%></td>
+                    <% end %>
                 </tr>
                 <tr>
                     <td>ミス:</td>
+                    <%=if Enum.at(@bools,1) == 0 do%>
                     <td><%= @error %>回</td>
+                    <% else %>
+                    <td><span class="red">New!</span><%= @error%>回</td>
+                    <% end %>
                 </tr>
                 <tr>
                     <td>レベル:</td>

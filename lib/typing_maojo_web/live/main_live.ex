@@ -154,7 +154,8 @@ defmodule TypingMaojoWeb.MainLive do
             time: time,
             sentence_at: at,
             misstypes: misstypes,
-            id: id
+            id: id,
+            sentence_list: sentence_list
         }
         =socket.assigns
 
@@ -174,6 +175,7 @@ defmodule TypingMaojoWeb.MainLive do
         |> put_flash(:count, at)
         |> put_flash(:exp, exp)
         |> put_flash(:misstypes, misstypes)
+        |> put_flash(:list, sentence_list)
         |> redirect(to: "/game/finish/#{id}/#{area}/#{stage}")
     end
 end

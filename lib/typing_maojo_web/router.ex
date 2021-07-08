@@ -24,6 +24,8 @@ defmodule TypingMaojoWeb.Router do
     live "/game/stage/:id/:area", AreaLive
     live "/game/area/:id", WorldLive
     live "/game/select", SelectLive
+    live "/game/info/:id", InfoLive
+    live "/game/info/data/:id/:area/:stage", InfoDataLive
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,36 @@
+<div class="wrapper-finish">
+    <h1 class="title-finish">データ</h1>
+    <p>レベル: <%= @level%></p>
+    <table>
+    <tr>
+        <%= for x <- 0..3 do %>
+        <%
+        [area,stage] = [div(x,2) + 1,rem(x,2) + 1]
+        reached = String.to_integer(@stage) + String.to_integer(@area) * 2
+        %>
+        <td>
+            <%=if x < reached do%>
+            <a href='<%="/game/info/data/#{@id}/#{area}/#{stage}"%>'><%="ステージ #{area}-#{stage}"%></a>
+            <% else %>
+            <%="ステージ #{area}-#{stage}"%>
+            <% end %>
+        </td>
+        <% end %>
+    </tr>
+    <tr>
+    <%= for x <- 4..7 do %>
+        <%
+         [area,stage] = [div(x,2) + 1,rem(x,2) + 1]
+         reached = String.to_integer(@stage) + String.to_integer(@area) * 2
+        %>
+        <td>
+            <%=if x < reached do%>
+            <a href='<%="/game/info/data/#{@id}/#{area}/#{stage}"%>'><%="ステージ #{area}-#{stage}"%></a>
+            <% else %>
+            <%="ステージ #{area}-#{stage}"%>
+            <% end %>
+        </td>
+    <% end %>
+    </tr>
+    </table>
+</div>
