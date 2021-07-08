@@ -132,8 +132,7 @@ defmodule TypingMaojoWeb.FinishLive do
             exp: exp_now,
             level_past: level_now,
             level: level_new,
-            levelupflag: levelupflag
-            level: level_now,
+            levelupflag: levelupflag,
             bools: bools
         ])
     end
