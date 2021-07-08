@@ -186,7 +186,17 @@ body{
   background-color: black;
 }
 
+.world_textbox{
+  height: 100%;
+  width:100%;
+  background-color: black;
+}
+
 .text{
+  text-align: center;
   color: white;
 }
 
+.back{
+  width: 100%;
+}
