@@ -10,7 +10,12 @@ header {
   justify-content: space-between;
 }
 
-header p {
+.header-icon {
+  height: 44px;
+  margin: 2px 20px 2px 10px;
+}
+
+.header-block {
   line-height: 50px;
   text-align: center;
   margin: 0 20px;
@@ -28,4 +33,18 @@ header p {
 
 header a {
   color: black;
+}
+
+.speaker {
+  height: 40px;
+  margin: 5px 20px;
+}
+
+.off-speaker {
+  height: 40px;
+  margin: 5px 20px;
+}
+
+.hidden {
+  display: none;
 }

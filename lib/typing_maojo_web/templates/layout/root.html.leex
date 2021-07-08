@@ -29,32 +29,102 @@
   <body>
     <header>
       <div class="header-left">
-        <p><%= link "TypingRPG", to: "/game/start" %></p>
+        <%= link to: "/game/start" do %>
+          <img src="/images/icon/title.png" class="header-icon">
+        <% end %>
         <%= if Map.has_key?(@conn.assigns, :id) do %>
-          <p><%= link "エリア選択", to: "/game/area/#{@conn.assigns.id}" %></p>
+          <div class="header-block"><%= link "エリア選択", to: "/game/area/#{@conn.assigns.id}" %></div>
           <%= if Map.has_key?(@conn.assigns, :area) do %>
-            <p><%= link "ステージ選択", to: "/game/stage/#{@conn.assigns.id}/#{@conn.assigns.area}" %></p>
+            <div class="header-block"><%= link "ステージ選択", to: "/game/stage/#{@conn.assigns.id}/#{@conn.assigns.area}" %></div>
           <% end %>
         <%end %>
       </div>
       <div class="header-right">
-        <a onclick="mute();"><p>Sound</p></a>
         <%= if Map.has_key?(@conn.assigns, :id) do %>
-          <p>名前: <%= get_name(@conn.assigns.id) %></p>
-          <p>レベル <%= get_level(@conn.assigns.id) %></p>
+          <div class="header-block">名前: <%= get_name(@conn.assigns.id) %></div>
+          <div class="header-block">レベル <%= get_level(@conn.assigns.id) %></div>
         <% end %>
+        <div onclick="mute();">
+          <img class="speaker" src="/images/icon/可愛いスピーカーアイコン.png">
+          <img class="off-speaker hidden" src="/images/icon/スピーカーOFFアイコン.png">
+        </div>
       </div>
     </header>
     <%= @inner_content %>
   </body>
 </html>
+
 <script>
+
     var TARGET = document.getElementById('audio');
-      function mute(){
-        if(TARGET.muted){
-          TARGET.muted = false;
-        }else{
-          TARGET.muted = true;
+    var volume;
+    var muted;
+
+    if (document.cookie) {
+      var cookies = document.cookie.split("; ");
+      for (var v of cookies) {
+        var vArray = v.split("=");
+        if (vArray[0] == "volume") {
+          volume = vArray[1];
+        }
+        if (vArray[0] == "muted") {
+          muted = vArray[1];
         }
       }
+    }
+
+    if (typeof volume === "undefined") {
+      volume = 0.5;
+    }
+    console.log(document.cookie);
+    TARGET.volume = volume;
+
+    var speaker = document.querySelector('.speaker');
+    var off_speaker = document.querySelector('.off-speaker');
+
+    if (muted == "true") {
+      TARGET.muted = true;
+      speaker.className = 'speaker hidden';
+      off_speaker.className = 'off-speaker';
+    }
+
+    if (muted == "false") {
+      TARGET.muted = false;
+      speaker.className = 'speaker';
+      off_speaker.className = 'off-speaker hidden';
+    }
+    console.log(muted);
+    console.log(TARGET.muted);
+
+
+
+
+    window.onbeforeunload = function(){
+      muted = TARGET.muted;
+      document.cookie = "volume=" + volume;
+      document.cookie = "muted=" + muted;
+      };
+
+    function mute(){
+      var speaker = document.querySelector('.speaker');
+      var off_speaker = document.querySelector('.off-speaker');
+      if(TARGET.muted){
+        TARGET.muted = false;
+        speaker.className = 'speaker';
+        off_speaker.className = 'off-speaker hidden';
+      }else{
+        TARGET.muted = true;
+        speaker.className = 'speaker hidden';
+        off_speaker.className = 'off-speaker';
+      }
+    }
+
+    function volume(Num){
+        if(TARGET.volume == Num){
+            TARGET.volume = Num + 0.5;
+        }else{
+            TARGET.volume = Num;
+        }
+        }
+
 </script>
