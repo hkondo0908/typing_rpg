@@ -47,8 +47,8 @@
   <div class="start-background">
     <div class="start-message">
       <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
-      <p>全10問</p>
-      <p>制限時間 60秒</p>
+      <p>全<%= @max %>問</p>
+      <p>制限時間 <%= String.to_integer(@stage)*60%>秒</p>
       <p>HP 10</p>
       <p>※ミスタイプをするとHPが1減ります。HPが0になったらゲームオーバーです。</p>
       <p>Spaceキーを押すと始まります。</p>
