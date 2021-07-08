@@ -63,6 +63,14 @@
     </div>
   </div>
 <% end %>
+
+<%= if @endflag do %>
+  <div class="start-background">
+    <div class="start-message">
+      <p>終了！</p>
+    </div>
+  </div>
+<% end %>
 </body>
 
 <audio autoplay loop id="space">

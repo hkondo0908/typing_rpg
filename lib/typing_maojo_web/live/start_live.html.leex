@@ -1,10 +1,20 @@
-
+<style>
+div.title{
+    width: 70%;
+    margin-top: 70px;
+    margin-bottom: 60px;
+    margin-left: 140px;
+}
+div.startbutton{
+    text-align: center;
+}
+</style>
 
 <div class="wrapper">
-    <div>
+    <div class="title">
         <img src="/images/icon/title.png">
     </div>
-    <div>
+    <div  class="startbutton">
         <%= button "GAME START" , to: "/game/select" , method: :get%>
     </div>
 </div>
