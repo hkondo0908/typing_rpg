@@ -36,6 +36,15 @@ defmodule TypingMaojoWeb.CsvRead do
       |> File.write(new_charas)
     end
 
+    def info_renew(id,info) do
+      num = String.to_integer(id)
+      new_infos = List.replace_at(read_info(),num-1,info)
+      |> CSV.Encoding.Encoder.encode(headers: true)
+      |> Enum.to_list()
+      Path.expand("info.csv")
+      |> File.write(new_infos)
+    end
+
     def level_new() do
       levels = Enum.map(1..100, fn x->
         %{"レベル"=>x,"経験値"=>x}
@@ -56,6 +65,14 @@ defmodule TypingMaojoWeb.CsvRead do
 
     def read_stages do
       Path.expand("stages.csv")
+      |> File.stream!
+      |> CSV.Decoding.Decoder.decode(headers: true)
+      |> Enum.to_list()
+      |> Keyword.get_values(:ok)
+    end
+
+    def read_info do
+      Path.expand("info.csv")
       |> File.stream!
       |> CSV.Decoding.Decoder.decode(headers: true)
       |> Enum.to_list()

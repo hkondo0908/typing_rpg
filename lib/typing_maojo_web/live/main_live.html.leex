@@ -53,7 +53,10 @@
   <div class="start-background">
     <div class="start-message">
       <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
-      <p>全10問 / HP:10 / 制限時間60秒</p>
+
+      <p>全<%= @max %>問</p>
+      <p>制限時間 <%= String.to_integer(@stage)*60%>秒</p>
+      <p>HP 10</p>
       <p>※ミスタイプをするとHPが1減ります。HPが0になったらゲームオーバーです。</p>
       <p>問題はランダムに表示されます</p>
       <p>escキーを押すと一時中断します</p>
@@ -66,6 +69,14 @@
   <div class="start-background">
     <div class="start-message">
       <p>一時中断中。escキーで再開します。</p>
+    </div>
+  </div>
+<% end %>
+
+<%= if @endflag do %>
+  <div class="start-background">
+    <div class="start-message">
+      <p>終了！</p>
     </div>
   </div>
 <% end %>
