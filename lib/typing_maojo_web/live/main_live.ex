@@ -3,6 +3,7 @@ defmodule TypingMaojoWeb.MainLive do
     use Phoenix.HTML
     import TypingMaojoWeb.ErrorHelpers, warn: false
     alias TypingMaojoWeb.MakeList
+    alias TypingMaojoWeb.ListCharas
     alias TypingMaojoWeb.Levels
     alias TypingMaojoWeb.Stages
 
@@ -17,6 +18,10 @@ defmodule TypingMaojoWeb.MainLive do
 
     def handle_info(:miss, socket) do
         {:noreply, assign(socket, missflag: false)}
+    end
+
+    def handle_info(:finish, socket) do
+        {:noreply, assign(socket, endflag: true)}
     end
 
     def handle_event("start", _,socket) do
@@ -72,7 +77,8 @@ defmodule TypingMaojoWeb.MainLive do
             misstypes: [],
             enemy: 1,
             startflag: false,
-            missflag: false
+            missflag: false,
+            endflag: false
         ]
         assign(socket,value)
     end
@@ -147,6 +153,8 @@ defmodule TypingMaojoWeb.MainLive do
     end
 
     defp game_finish(socket,atom) do
+        :timer.send_after(1000,:finish)
+
         %{
             area: area,
             stage: stage,
@@ -166,16 +174,23 @@ defmodule TypingMaojoWeb.MainLive do
         |> Enum.map(fn {k, v} ->  "#{k}$ #{v}" end)
         |> Enum.join("\n")
 
+        sentence_list = Enum.take(sentence_list, at)
+
+        %{"経験値" => _exp_now, "レベル" => level_now} = ListCharas.find_chara(id)
         exp = (Stages.find_exp(area,stage)) * at
         Levels.level_up(id,exp)
 
+        :timer.sleep(3000)
         put_flash(socket,:result,atom)
         |> put_flash(:error,error)
         |> put_flash(:time,time)
         |> put_flash(:count, at)
         |> put_flash(:exp, exp)
         |> put_flash(:misstypes, misstypes)
+        |> put_flash(:sentence_list, sentence_list)
+        |> put_flash(:level_now, level_now)
         |> put_flash(:list, sentence_list)
         |> redirect(to: "/game/finish/#{id}/#{area}/#{stage}")
     end
+
 end

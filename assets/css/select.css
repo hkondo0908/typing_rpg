@@ -1,6 +1,6 @@
 .chara1:hover:after,.chara2:hover:after,.chara3:hover:after{
   content: "";
-  border: solid 1px yellow;
+  border: solid 1px #E6B8A0;
   position: absolute;
   top: 2px;
   left: 2px;
@@ -21,17 +21,19 @@ div.wrapper{
   height: 80%;
   width: 50%;
   margin: 100px auto;
+  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid lightgreen;
-  background-color: rgba(0, 255, 0, 0.2);
+  border: 1px solid #D3554D;
+  background-color: #D3554D;
 }
 
 .title-select {
   font-size: 30px;
-  border-bottom: 1px solid black;
+  color: white;
+  border-bottom: 1px solid white;
 }
 
 .data-box {
@@ -40,7 +42,7 @@ div.wrapper{
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid lightgreen;
+  border: 1px solid #E6B8A0;
   margin: 10px 0;
   background-color: white;
 }
@@ -60,19 +62,22 @@ div.wrapper{
   margin: 20px;
   height: 30px;
   width: 100px;
-  background-color: rgba(0, 255, 0, 0.2);
+  padding: 1px;
+  background-color: #D3554D;
+  color: white;
+  text-align: center;
 }
 
 .data-button:hover {
   cursor: pointer;
-  background-color: rgba(0, 255, 0, 1);
+  background-color: #875570;
 }
 
 .delete-button{
   height: 30px;
   width: 100px;
   text-align: center;
-  background-color: rgba(0, 0, 255, 0.2);
+  background-color: #D3554D;
 }
 
 .button-2{
@@ -82,7 +87,7 @@ div.wrapper{
 
 .delete-button:hover {
   cursor: pointer;
-  background-color: rgba(0, 0, 255, 1);
+  background-color: #875570;
 }
 
 .data-table{

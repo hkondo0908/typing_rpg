@@ -10,9 +10,9 @@ defmodule TypingMaojoWeb.FinishLive do
         {:ok,first_socket(id,area,stage,socket)}
     end
 
-    defp ex_functions(area, stage, count) do
+    defp ex_functions(area, stage, sentence_list) do
         MakeList.list_up_result(area, stage)
-        |> Enum.take(count)
+        |> Enum.filter(fn x -> Enum.at(x,2) in sentence_list end)
         |> Enum.map(&Enum.slice(&1, 2, 3))
     end
 
@@ -23,6 +23,8 @@ defmodule TypingMaojoWeb.FinishLive do
         result = socket.assigns.flash["result"]
         count = socket.assigns.flash["count"]
         exp = socket.assigns.flash["exp"]
+        level_now = socket.assigns.flash["level_now"]
+        sentence_list = socket.assigns.flash["sentence_list"]
         context =
         case result do
             :completed -> "クリア!!\n#{time}秒"
@@ -37,9 +39,16 @@ defmodule TypingMaojoWeb.FinishLive do
         if result == :completed do
             ListCharas.update_chara(id,area,stage)
         end
-        functions = ex_functions(area, stage, count)
 
-        %{"経験値" => exp_now, "レベル" => level_now} = ListCharas.find_chara(id)
+        functions = ex_functions(area, stage, sentence_list)
+
+        %{"経験値" => exp_now, "レベル" => level_new} = ListCharas.find_chara(id)
+        levelupflag=
+        if level_new != level_now do
+            true
+        else
+            false
+        end
 
         list = socket.assigns.flash["list"]
         sent_list = MakeList.list_up_straight(area,stage)
@@ -121,6 +130,9 @@ defmodule TypingMaojoWeb.FinishLive do
             id: id,
             get_exp: to_string(exp),
             exp: exp_now,
+            level_past: level_now,
+            level: level_new,
+            levelupflag: levelupflag
             level: level_now,
             bools: bools
         ])
