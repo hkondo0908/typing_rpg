@@ -160,7 +160,7 @@ div.dis_area4 {
   background-position: center;
 }
 
-span.message{
+.message{
   display:inline-block;
   text-align: left;
   color: #e1e1e1;
@@ -175,6 +175,11 @@ body{
   background-size: cover;
 }
 
+div.area_select{
+  margin-right: 100%;
+  width: 100%;
+}
+
 .container{
   display: flex;
   margin-right: 10%;
@@ -186,7 +191,17 @@ body{
   background-color: black;
 }
 
+.world_textbox{
+  height: 100%;
+  width:100%;
+  background-color: black;
+}
+
 .text{
+  text-align: center;
   color: white;
 }
 
+.back{
+  width: 100%;
+}

@@ -67,23 +67,22 @@ position: relative;
     background-size: cover;
     background-position: center;
 }
-
-
 </style>
 <div class="wrapper">
 
   <div>
         <span><h1>エリア<%=@area%>: ステージ選択</h1></span>
+    <%= if @area == "1" do %>
     <div>
         <a href="<%=str1%>">
             <div class="<%=class1 %>">
-                <span class="message">ステージ1:</span>
+                <span class="message">ステージ1 : "Meadow of elements"</span>
             </div>
         </a>
 
         <a href="<%=str2%>">
             <div class="<%= class2%>">
-                <span class="message">ステージ2:</span>
+                <span class="message">ステージ2:boss</span>
             </div>
         </a>
     </div>
@@ -91,9 +90,128 @@ position: relative;
 
   <div class="textbox">
     <p class="text">
-    「この世界を知ろうじゃないか」
+    さて、一歩を踏み出したあなたが最初に訪れるのは、要素たちの集う草原です。<br>
+    若草が風にそよぐなかで、データ型から記法まで、小さな命が群れて集って跳ね回ります。<br>
+    かれらは小さくとも皆、このエリクサーの地を支える、大切な構成要素です。<br>
+    まず彼らを知るところから、エリクサーは始まります。<br>
+    <br>
+    「ものは試しだ。かれらで少し遊んでみよう」<br>
+    <br>
+    不死鳥はあざやかな切羽を一振り、あなたに呪文を授けます。<br>
     </p>
   </div>
+
+  <% else %>
+
+     <%= if @area == "2" do %>
+    <div>
+        <a href="<%=str1%>">
+            <div class="<%=class1 %>">
+                <span class="message">ステージ1 : "Dragons of Enum"</span>
+            </div>
+        </a>
+
+        <a href="<%=str2%>">
+            <div class="<%= class2%>">
+                <span class="message">ステージ2:boss</span>
+            </div>
+        </a>
+    </div>
+  </div>
+
+  <div class="textbox">
+    <p class="text">
+    エレメントの原野を抜けた先には、竜たちの住まう高原がありました。<br>
+    竜は、強い生き物です。その鱗は、たとえ不死鳥の呪文であっても、生半可には寄せ付けません。<br>
+    しかし、竜は賢く、誇り高い生き物でもあります。与えられればその分だけを返します。<br>
+    『正しい入力には正しい出力を』が彼らのモットーです。<br>
+    その力、Enum関数の力は、きっと、これからのあなたを助けることでしょう。<br>
+    そのために必要なのは、そう。正しく唱えて、正しく使うこと。<br>
+    </p>
+  </div>
+   <%else %>
+      <%= if @area == "3" do %>
+    <div>
+        <a href="<%=str1%>">
+            <div class="<%=class1 %>">
+                <span class="message">ステージ3 : "Stirng's nest"</span>
+            </div>
+        </a>
+
+        <a href="<%=str2%>">
+            <div class="<%= class2%>">
+                <span class="message">boss</span>
+            </div>
+        </a>
+    </div>
+  </div>
+
+  <div class="textbox">
+    <p class="text">
+    Stringの森には、獣たちがひそみます。<br>
+    枝葉や根がねじくれて、複雑に絡みあうこの森は、かれらにとっては絶好の住処です。<br>
+    しかし今、この森に踏み込むのはあなたと不死鳥。竜と渡り合った者に、怖いものなどありません。<br>
+    木々も獣も、枝も根も角も牙も、ばらばらに、まとめて、入れ替えて、長さを測って、つくりかえて！<br>
+    <br>
+    思うがままに、進みましょう。<br>
+    </p>
+  </div>
+
+  <% else %>
+
+      <%= if @area == "4" do %>
+    <div>
+        <a href="<%=str1%>">
+            <div class="<%=class1 %>">
+                <span class="message">ステージ4 : "Robust List castle"</span>
+            </div>
+        </a>
+
+        <a href="<%=str2%>">
+            <div class="<%= class2%>">
+                <%= if @area == "1" do %>
+                    <div class="message">boss</div>
+                <%else %>
+
+                    <%= if @area == "2" do %>
+                        <div class="message">boss</div>
+                    <%else %>
+
+                        <%= if @area == "3" do %>
+                            <div class="message">boss</div>
+                        <%else %>
+
+                            <%= if @area == "4" do %>
+                                <div class="message">boss</div>
+                            <%end %>
+
+                        <%end %>
+                    <%end %>
+                <%end %>
+            </div>
+        </a>
+    </div>
+  </div>
+
+  <div class="textbox">
+    <p class="text">
+    森を抜けたら、険しい山野。そこには、立派なお城がそびえていました。<br>
+    未開の地エリクサーにも人はいて社会を作っています。ですが少し野蛮なようです。<br>
+    高い城壁に、整然と兵士たちが並んでいます。揃いの鎧と武器を閃かせ、少し剣呑な雰囲気です。<br>
+    隊長たちの号令一下、切っ先があなたを睨みます。<br>
+    あとは王様の命を待つのみです。<br>
+    <br>
+    しかし、呪文をかければこの通り。部隊も階級もあべこべに。部下と上司が夫婦になって、兄弟姉妹が赤の他人に。<br>
+    カチカチに固まったlistの城のつまらない秩序を、好き放題にしてしまいましょう。<br>
+    </p>
+  </div>
+
+  <% end %>
+  <% end %>
+  <% end %>
+<% end %>
+
+
 
 </div>
 
