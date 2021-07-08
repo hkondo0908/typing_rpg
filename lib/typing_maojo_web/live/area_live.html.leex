@@ -67,8 +67,6 @@ position: relative;
     background-size: cover;
     background-position: center;
 }
-
-
 </style>
 <div class="wrapper">
 
@@ -171,7 +169,25 @@ position: relative;
 
         <a href="<%=str2%>">
             <div class="<%= class2%>">
-                <span class="message">ステージ2:</span>
+                <%= if @area == "1" do %>
+                    <div class="message">boss</div>
+                <%else %>
+
+                    <%= if @area == "2" do %>
+                        <div class="message">boss</div>
+                    <%else %>
+
+                        <%= if @area == "3" do %>
+                            <div class="message">boss</div>
+                        <%else %>
+
+                            <%= if @area == "4" do %>
+                                <div class="message">boss</div>
+                            <%end %>
+
+                        <%end %>
+                    <%end %>
+                <%end %>
             </div>
         </a>
     </div>
