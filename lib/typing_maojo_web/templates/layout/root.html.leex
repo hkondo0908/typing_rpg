@@ -40,6 +40,11 @@
         <%end %>
       </div>
       <div class="header-right">
+
+      <%= if Map.has_key?(@conn.assigns, :id) do %>
+        <a href='<%= "/game/info/#{@conn.assigns.id}" %>'><p>詳細情報</p></a>
+      <% end %>
+        <a onclick="mute();"><p>Sound</p></a>
         <%= if Map.has_key?(@conn.assigns, :id) do %>
           <div class="header-block">名前: <%= get_name(@conn.assigns.id) %></div>
           <div class="header-block">レベル <%= get_level(@conn.assigns.id) %></div>

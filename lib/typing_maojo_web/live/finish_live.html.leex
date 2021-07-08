@@ -33,28 +33,54 @@ end
 <div class="wrapper-finish">
     <h1 class="title-finish"><%="エリア#{@area} ステージ#{@stage} "<>result%></h1>
 
+    <%= if @levelupflag do%>
+    <p style="text-align:center;color:#D3554D;">レベルが上がった！</p>
+    <% end %>
+
     <div class="tables">
         <div class="result-table table1">
             <table>
                 <tr>
+                    <td>レベル:</td>
+                    <%= if @levelupflag do%>
+                    <td><span class="small-letter"> ( <%= @level_past %> →) </span><span style="color:#D3554D;"><%= @level%></span></td>
+                    <% else %>
+                    <td><%= @level%></td>
+                    <% end %>
+                </tr>
+                <tr>
                     <td>経験値:</td>
+                    <%=if Enum.at(@bools,0) == 0 do%>
                     <td><%= @get_exp%>pt</td>
+                    <% else %>
+                    <td><span class="red">New!</span><%= @get_exp%>pt</td>
+                    <% end %>
                 </tr>
                 <tr>
                     <td>正解数:</td>
+                    <%=if Enum.at(@bools,2) == 0 do%>
                     <td> <%= @count %> </td>
+                    <% else %>
+                    <td><span class="red">New!</span><%= @count%></td>
+                    <% end %>
                 </tr>
                 <tr>
+                    <tr>
                     <td>クリアタイム:</td>
-                    <td> <%= message %> </td>
+                    <%=if Enum.at(@bools,3) == 0 do%>
+                    <td> <%= message %> <span class="small-letter"> / <%= String.to_integer(@stage)*60 %>秒 </span></td>
+                    <td>クリアタイム:</td>
+                    <% else %>
+                    <td><span class="red">New!</span><%= message %> <span class="small-letter"> / <%= String.to_integer(@stage)*60 %>秒</span></td>
+                    <% end %>
                 </tr>
                 <tr>
                     <td>ミス:</td>
+                    <%=if Enum.at(@bools,1) == 0 do%>
                     <td><%= @error %>回</td>
-                </tr>
-                <tr>
-                    <td>レベル:</td>
-                    <td><%= @level%></td>
+                    <% else %>
+                    <td><span class="red">New!</span><%= @error%>回</td>
+                    <% end %>
                 </tr>
             </table>
         </div>
@@ -74,6 +100,15 @@ end
         </div>
     </div>
 
+   <div class="buttons-finish">
+        <%= button "ステージ選択に戻る", to: stage_link, method: :get%>
+        <%= button "もう一度挑戦する", to: again_link, method: :get%>
+        <%= if @result == :completed do%>
+            <%= button next, to: next_link, method: :get%>
+        <% end %>
+    </div>
+
+
     <table class="functions">
 
         <tr>
@@ -91,15 +126,9 @@ end
     </table>
 
 
-    <div class="buttons-finish">
-        <%= button "ステージ選択に戻る", to: stage_link, method: :get%>
-        <%= button "もう一度挑戦する", to: again_link, method: :get%>
-        <%= if @result == :completed do%>
-            <%= button next, to: next_link, method: :get%>
-        <% end %>
-    </div>
-</div>
 
+
+    </div>
 
 
 <audio autoplay loop id="audio">

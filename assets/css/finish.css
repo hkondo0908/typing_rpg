@@ -46,3 +46,7 @@
 .buttons-finish button {
   margin-right: 15px;
 }
+
+.small-letter{
+  font-size: small;
+}

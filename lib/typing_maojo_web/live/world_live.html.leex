@@ -10,13 +10,16 @@ end)
 %>
 <style>
 
+p#id{
+    font-size: 15px;
+}
+
 .dis_area1,.dis_area2,.dis_area3,.dis_area4{
 text-align: center;
 display: inline-block;
 border: 1px solid black;
-width : 24%;
+width : 25%;
 height: 300px;
-float: left;
 position: relative;
 pointer-events:none;
 }
@@ -47,6 +50,7 @@ position: relative;
 </style>
 <body>
 <div class="wrapper">
+<div class="back">
 <div>
     <h1>エリア選択</h1>
     <div>
@@ -73,18 +77,26 @@ position: relative;
             エリア4: Listモジュール
         </div>
         </a>
-
-
-
     <br>
-
-
 </div>
-<div class="textbox">
-    <p class="text">文章
+</div>
+<div class="world_textbox">
+<p class="text">
+「エリクサーへようこそ!」<br>
+<br>
+ここはアーランの世界に現れた大地。その名も「エリクサー」。<br>
+広く、豊かで、しかし未開です。<br>
+あなたを導くのは一羽の不死鳥。<br>
+かれがもたらす呪文ならば、この世界は思いのまま。<br>
+小さなエレメントはもちろん、誇り高い竜たちも、森に潜む獣たちも、堅牢な護りのお城でも。<br>
+<br>
+「必要なのは、正しく唱えて正しく使うことさ」<br>
+<br>
+うそぶく不死鳥を肩にのせ、あなたの冒険がはじまります。<br>
+<br>
+<br>
     </p>
   </div>
-  <%=button "タイトル画面へ", to: "/game/start", method: :get%>
 </div>
 
 </body>

@@ -9,46 +9,15 @@
   border-right: 2px solid lightgrey;
 }
 
-.main-background {
-  height: 100%;
-  padding-top: 30px;
-  background-image: url('/images/back-grounds/草原.png');
-  background-size: cover;
-}
-
-.top {
-  height: 18%;
-  width: 95%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
-}
-
-.top-left {
-  height: 50px;
-  width: 25%;
-  /* background-color: rgba(135, 85, 112, 1); */
-  background-color: rgba(211, 85, 77, 1);
-
-  color: white;
-  text-align: center;
-}
-
-.top-left p {
-  line-height: 50px;
-  font-size: 18px;
-}
-
 .top-center {
   height: 100px;
   width: 30%;
-  background-color: rgba(211, 85, 77, 1);
+  background-color: #361213; 
   /* background-color: rgba(135, 85, 112, 1); */
-  color: white;
+  color: #caf2f1  ;
   text-align: center;
   font-size: 24px;
+  border-radius: 9px;
 }
 
 .top-center p {
@@ -89,7 +58,7 @@
 }
 
 .input-box {
-  height: 200px;
+  height: 260px;
   border-radius: 20px;
   border: 3px solid black;
   margin: 30px auto 0 auto;
@@ -125,6 +94,11 @@
 }
 .red{
   color: red;
+}
+
+.space{
+  color:brown;
+  font-size: 30px;
 }
 
 .typed {
@@ -180,3 +154,6 @@
   justify-content: space-around;
 }
 
+.time{
+  margin-top: 20px;
+}
