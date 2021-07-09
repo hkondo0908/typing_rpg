@@ -104,8 +104,8 @@
 </div>
 
 <%= if @status=="delete" do %>
-  <div class="start-background">
-    <div class="start-message">
+  <div class="message-background">
+    <div class="message-content">
       <p>データ<%= @id%></p>
       <p>本当に消しますか？</p>
       <div class="button-2">
@@ -121,8 +121,8 @@
 <% end %>
 
 <%= if @status=="new" do %>
-  <div class="start-background">
-    <div class="start-message">
+  <div class="message-background">
+    <div class="message-content">
       名前を入力してください
       <p><form phx-submit="submit">
             <input type="text" name="name" placeholder="名前を入力してください" required>
