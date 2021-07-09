@@ -12,7 +12,9 @@
 span#esc{
   background-color: black;
   color: white;  
-  border-radius: 9px;
+  border-radius: 7px;
+  padding: 2px;
+  margin-left: 5px;
 }
 
 .top-center {
@@ -23,6 +25,8 @@ span#esc{
   color: #caf2f1  ;
   text-align: center;
   font-size: 24px;
+  margin-left: 5px;
+  margin-bottom: 5px;
 
 }
 
