@@ -84,26 +84,26 @@ position: relative;
 </style>
 <div class="wrapper">
 
-  <div>
-    <div class="title-area">
-        <div><h1>エリア<%=@area%>: ステージ選択</h1></div>
-        <p class="stage2-message">* ステージ２は難易度が高く設定されています*</p>
-    </div>
-    <%= if @area == "1" do %>
-    <div>
-        <a href="<%=str1%>">
-            <div class="<%=class1 %>">
-                <span class="message">stage1 : "Meadow of kernel"</span>
-            </div>
-        </a>
+    <div class="area-area">
+        <div class="title-area">
+            <div><h1>エリア<%=@area%>: ステージ選択</h1></div>
+            <p class="stage2-message">* ステージ２は難易度が高く設定されています*</p>
+        </div>
+        <%= if @area == "1" do %>
+        <div>
+            <a href="<%=str1%>">
+                <div class="<%=class1 %>">
+                    <span class="message">stage1 : "Meadow of kernel"</span>
+                </div>
+            </a>
 
-        <a href="<%=str2%>">
-            <div class="<%= class2%>">
-                <span class="message">stage2 : "Mischievous elements"</span>
-            </div>
-        </a>
+            <a href="<%=str2%>">
+                <div class="<%= class2%>">
+                    <span class="message">stage2 : "Mischievous elements"</span>
+                </div>
+            </a>
+        </div>
     </div>
-  </div>
 
   <div class="textbox">
     <p class="text">
