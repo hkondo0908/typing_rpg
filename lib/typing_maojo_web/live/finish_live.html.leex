@@ -69,7 +69,6 @@ end
                     <td>クリアタイム:</td>
                     <%=if Enum.at(@bools,3) == 0 do%>
                     <td> <%= message %> <span class="small-letter"> / <%= String.to_integer(@stage)*60 %>秒 </span></td>
-                    <td>クリアタイム:</td>
                     <% else %>
                     <td><span class="red">New!</span><%= message %> <span class="small-letter"> / <%= String.to_integer(@stage)*60 %>秒</span></td>
                     <% end %>
