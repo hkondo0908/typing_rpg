@@ -195,7 +195,7 @@ defmodule TypingMaojoWeb.MainLive do
         sentence_list = Enum.take(sentence_list, count)
 
         %{"経験値" => _exp_now, "レベル" => level_now} = ListCharas.find_chara(id)
-        exp = (Stages.find_exp(area,stage)) * at
+        exp = (Stages.find_exp(area,stage)) * count
         Levels.level_up(id,exp)
 
         put_flash(socket,:result,result)
