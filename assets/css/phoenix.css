@@ -163,8 +163,10 @@ div.dis_area4 {
 .message{
   display:inline-block;
   text-align: left;
-  color: #e1e1e1;
-  background-color: #000;
+  color: #655100;
+  background-color:#899ef0;
+  padding: 1px;
+  border-radius: 5px; 
 }
 
 body{

@@ -9,6 +9,12 @@
   border-right: 2px solid lightgrey;
 }
 
+span#esc{
+  background-color: black;
+  color: white;  
+  border-radius: 9px;
+}
+
 .top-center {
   height: 100px;
   width: 30%;
@@ -17,7 +23,7 @@
   color: #caf2f1  ;
   text-align: center;
   font-size: 24px;
-  border-radius: 9px;
+
 }
 
 .top-center p {
@@ -25,15 +31,14 @@
 }
 
 .top-right {
-  width: 25%;
-  /* background-color: rgba(230, 184, 160, 1); */
+  height: 50px;
+  width: 30%;
+  background-color: #361213; 
   /* background-color: rgba(135, 85, 112, 1); */
-  background-color: rgba(211, 85, 77, 1);
-
-  color: white;
-  text-align: center;
+  color: #caf2f1  ;
+  float: right;
   font-size: 24px;
-  padding: 5px;
+  border-radius: 9px;
 }
 
 .top-right p {
@@ -51,8 +56,8 @@
 }
 
 .enemy {
-  height: 250px;
-  width: 250px;
+  height: 220px;
+  width: 220px;
   margin: 10px auto;
   display: block;
 }
