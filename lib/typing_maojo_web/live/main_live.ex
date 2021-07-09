@@ -117,12 +117,8 @@ defmodule TypingMaojoWeb.MainLive do
         if key == expected_key do
             if number == sentence_len - 1 do
                 if at == max - 1 do
-                    new_socket = update(socket,:sentence_at, &(&1 + 1))
-                    |> represent_finish(:completed)
-                    IO.inspect(new_socket)
+                    represent_finish(socket,:completed)
                 else
-                    IO.puts(at)
-                    IO.puts(max)
                     new_sentence =
                     Enum.at(sentence_list,at+1)
                     assign(socket,
@@ -182,6 +178,13 @@ defmodule TypingMaojoWeb.MainLive do
         }
         =socket.assigns
 
+        count =
+        if result == :completed do
+            at + 1
+        else
+            at
+        end
+
         misstypes =
         misstypes
         |> Enum.frequencies()
@@ -189,7 +192,7 @@ defmodule TypingMaojoWeb.MainLive do
         |> Enum.map(fn {k, v} ->  "#{k}$ #{v}" end)
         |> Enum.join("\n")
 
-        sentence_list = Enum.take(sentence_list, at)
+        sentence_list = Enum.take(sentence_list, count)
 
         %{"経験値" => _exp_now, "レベル" => level_now} = ListCharas.find_chara(id)
         exp = (Stages.find_exp(area,stage)) * at
@@ -198,7 +201,7 @@ defmodule TypingMaojoWeb.MainLive do
         put_flash(socket,:result,result)
         |> put_flash(:error,error)
         |> put_flash(:time,time)
-        |> put_flash(:count, at)
+        |> put_flash(:count, count)
         |> put_flash(:exp, exp)
         |> put_flash(:misstypes, misstypes)
         |> put_flash(:sentence_list, sentence_list)

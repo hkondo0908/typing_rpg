@@ -58,7 +58,8 @@ defmodule TypingMaojoWeb.FinishLive do
             false
         end
 
-        list = socket.assigns.flash["list"]
+        list = socket.assigns.flash["sentence_list"]
+        IO.inspect(list)
         sent_list = MakeList.list_up_straight(area,stage)
         pre_info = Information.find_info(id)
         sent = "#{exp}^#{error}^#{count}^#{time}^"

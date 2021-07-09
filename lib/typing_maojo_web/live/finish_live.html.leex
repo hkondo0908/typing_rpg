@@ -124,7 +124,7 @@ end
         <%= for function <- @functions do %>
             <tr>
                 <td><%= List.first(function) %></td>
-                <%= if List.last(function) !="" do%>
+                <%= if @stage == "2" do%>
                 <td><%= List.last(function) %></td>
                 <% end %>
             </tr>
