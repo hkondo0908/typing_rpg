@@ -20,7 +20,13 @@
     <script>
       document.addEventListener('click', clickAudioPlay);
       function clickAudioPlay() {
-      document.getElementById('click').play();
+        var TARGET = document.getElementById('click')
+        var TARGET2 = document.getElementById('audio')
+
+      if (!TARGET2.muted){
+         TARGET.play();
+      }
+
     }
 
     </script>
