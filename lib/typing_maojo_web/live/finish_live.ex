@@ -77,7 +77,7 @@ defmodule TypingMaojoWeb.FinishLive do
                 [pre_exp,0]
             end
             [new_error,b2] =
-            if error > String.to_integer(pre_error) do
+            if error > String.to_integer(pre_error) or result != :completed do
                 [pre_error,0]
             else
                 [error,1]
@@ -89,7 +89,7 @@ defmodule TypingMaojoWeb.FinishLive do
                 [pre_count,0]
             end
             [new_time,b4] =
-            if time > String.to_integer(pre_time) do
+            if time > String.to_integer(pre_time) or result != :completed do
                 [pre_time,0]
             else
                 [time,1]
