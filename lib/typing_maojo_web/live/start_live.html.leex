@@ -1,20 +1,19 @@
 <style>
-div.title{
+.title-start{
     width: 70%;
-    margin-top: 70px;
-    margin-bottom: 60px;
-    margin-left: 140px;
+    margin: 10% auto 6% auto;
+    padding-left: 6%;
 }
-div.startbutton{
+.button-start{
     text-align: center;
 }
 </style>
 
 <div class="wrapper">
-    <div class="title">
+    <div class="title-start">
         <img src="/images/icon/title.png">
     </div>
-    <div  class="startbutton">
+    <div  class="button-start">
         <%= button "GAME START" , to: "/game/select" , method: :get%>
     </div>
 </div>
