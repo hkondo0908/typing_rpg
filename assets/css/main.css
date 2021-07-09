@@ -1,6 +1,6 @@
 .wrapper {
-  padding-top: 50px;
-  height: 100vh;
+  padding-top: 1px;
+  height: calc(100vh - 50px);
   width: 70vw;
   position: relative;
   background-color: #f8f8f8;
@@ -127,7 +127,7 @@
   background-color: lightpink;
 }
 
-.start-background {
+.message-background {
   position: absolute;
   z-index: 200;
   top: 0;
@@ -140,7 +140,7 @@
   align-items: center;
 }
 
-.start-message {
+.message-content {
   height: 60%;
   width: 60%;
   background-color: lightgrey;
