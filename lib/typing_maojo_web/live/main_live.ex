@@ -117,9 +117,12 @@ defmodule TypingMaojoWeb.MainLive do
         if key == expected_key do
             if number == sentence_len - 1 do
                 if at == max - 1 do
-                    update(socket,:sentence_at, &(&1 + 1))
+                    new_socket = update(socket,:sentence_at, &(&1 + 1))
                     |> represent_finish(:completed)
+                    IO.inspect(new_socket)
                 else
+                    IO.puts(at)
+                    IO.puts(max)
                     new_sentence =
                     Enum.at(sentence_list,at+1)
                     assign(socket,
