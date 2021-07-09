@@ -51,8 +51,8 @@ end
 </div>
 
 <%= if !@startflag do %>
-  <div class="start-background">
-    <div class="start-message">
+  <div class="message-background">
+    <div class="message-content">
       <p><%= "エリア#{@area} ステージ#{@stage}" %></p>
       <p>全<%= @max %>問 / HP 10/ 制限時間<%= String.to_integer(@stage)*60%>秒</p>
       <p>※ミスタイプをするとHPが1減ります。HPが0になったらゲームオーバーです。</p>
@@ -64,8 +64,8 @@ end
 <% end %>
 
 <%= if @escflag do %>
-  <div class="start-background">
-    <div class="start-message">
+  <div class="message-background">
+    <div class="message-content">
       <p>一時中断中。escキーで再開します。</p>
     </div>
   </div>
