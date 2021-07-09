@@ -1,4 +1,9 @@
-<% IO.puts(@missflag) %>
+<%
+[result|tail] =
+if @finish_message do
+String.split(@finish_message,"\n")
+end
+%>
 <style>
 .main-background {
   height: 100%;
@@ -69,7 +74,13 @@
 <%= if @endflag do %>
   <div class="start-background">
     <div class="start-message">
-      <p>終了！</p>
+      <h1><%= result %></h1>
+      <%= if tail != "" do %>
+      <p><%= tail%></p>
+      <% end %>
+      <div class="button-2">
+      <button phx-click="finish">結果画面へ</button>
+      </div>
     </div>
   </div>
 <% end %>
