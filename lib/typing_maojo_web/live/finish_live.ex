@@ -11,9 +11,17 @@ defmodule TypingMaojoWeb.FinishLive do
     end
 
     defp ex_functions(area, stage, sentence_list) do
-        MakeList.list_up_result(area, stage)
-        |> Enum.filter(fn x -> Enum.at(x,2) in sentence_list end)
-        |> Enum.map(&Enum.slice(&1, 2, 3))
+        list = MakeList.list_up_result(area, stage)
+        Enum.map(sentence_list,fn x->
+           result = Enum.map(list, fn y ->
+            [Enum.at(y,2),Enum.at(y,3)]
+           end)
+            index = Enum.find_index(result,fn w->
+                Enum.at(w,0)==x
+            end)
+            Enum.at(result,index)
+
+        end)
     end
 
     defp first_socket(id,area,stage,socket) do
@@ -69,7 +77,7 @@ defmodule TypingMaojoWeb.FinishLive do
                 [pre_exp,0]
             end
             [new_error,b2] =
-            if error > String.to_integer(pre_error) do
+            if error > String.to_integer(pre_error) or result != :completed do
                 [pre_error,0]
             else
                 [error,1]
@@ -81,7 +89,7 @@ defmodule TypingMaojoWeb.FinishLive do
                 [pre_count,0]
             end
             [new_time,b4] =
-            if time > String.to_integer(pre_time) do
+            if time > String.to_integer(pre_time) or result != :completed do
                 [pre_time,0]
             else
                 [time,1]
@@ -105,8 +113,6 @@ defmodule TypingMaojoWeb.FinishLive do
             |> Enum.map(fn x ->
                 Enum.find_index(sent_list,&(&1 == x))
             end)
-            IO.inspect(pre_en)
-            IO.inspect(en_list)
             Enum.uniq(pre_en ++ en_list)
             |> Enum.sort()
         end

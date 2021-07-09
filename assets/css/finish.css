@@ -50,3 +50,7 @@
 .small-letter{
   font-size: small;
 }
+
+.button-2 > .button-finish{
+  font-size: 25px;
+}
