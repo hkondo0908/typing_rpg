@@ -67,22 +67,39 @@ position: relative;
     background-size: cover;
     background-position: center;
 }
+
+.title-area {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stage2-message {
+    width: 50%;
+    text-align: center;
+    color: blue;
+    float: bottom;
+}
 </style>
 <div class="wrapper">
 
   <div>
-        <span><h1>エリア<%=@area%>: ステージ選択</h1></span>
+    <div class="title-area">
+        <div><h1>エリア<%=@area%>: ステージ選択</h1></div>
+        <p class="stage2-message">* ステージ２は難易度が高く設定されています*</p>
+    </div>
     <%= if @area == "1" do %>
     <div>
         <a href="<%=str1%>">
             <div class="<%=class1 %>">
-                <span class="message">ステージ1 : "Meadow of elements"</span>
+                <span class="message">stage1 : "Meadow of kernel"</span>
             </div>
         </a>
 
         <a href="<%=str2%>">
             <div class="<%= class2%>">
-                <span class="message">ステージ2:boss</span>
+                <span class="message">stage2 : "Mischievous elements"</span>
             </div>
         </a>
     </div>
@@ -107,13 +124,13 @@ position: relative;
     <div>
         <a href="<%=str1%>">
             <div class="<%=class1 %>">
-                <span class="message">ステージ1 : "Dragons of Enum"</span>
+                <span class="message">stage1 : "Dragons of Enum"</span>
             </div>
         </a>
 
         <a href="<%=str2%>">
             <div class="<%= class2%>">
-                <span class="message">ステージ2:boss</span>
+                <span class="message">stage2 : "Bless of funciton, Enumerated scales"</span>
             </div>
         </a>
     </div>
@@ -134,13 +151,13 @@ position: relative;
     <div>
         <a href="<%=str1%>">
             <div class="<%=class1 %>">
-                <span class="message">ステージ3 : "Stirng's nest"</span>
+                <span class="message">stage1 : "Stirng's nest"</span>
             </div>
         </a>
 
         <a href="<%=str2%>">
             <div class="<%= class2%>">
-                <span class="message">boss</span>
+                <span class="message">stage2 : "Confusing string"</span>
             </div>
         </a>
     </div>
@@ -150,7 +167,7 @@ position: relative;
     <p class="text">
     Stringの森には、獣たちがひそみます。<br>
     枝葉や根がねじくれて、複雑に絡みあうこの森は、かれらにとっては絶好の住処です。<br>
-    しかし今、この森に踏み込むのはあなたと不死鳥。竜と渡り合った者に、怖いものなどありません。<br>
+    しかし今、この森に踏み込むのはあなたと不死鳥。竜と渡り合ったあなたに、怖いものなどありません。<br>
     木々も獣も、枝も根も角も牙も、ばらばらに、まとめて、入れ替えて、長さを測って、つくりかえて！<br>
     <br>
     思うがままに、進みましょう。<br>
@@ -163,35 +180,16 @@ position: relative;
     <div>
         <a href="<%=str1%>">
             <div class="<%=class1 %>">
-                <span class="message">ステージ4 : "Robust List castle"</span>
+                <span class="message">stage1 : "Robust List castle"</span>
             </div>
         </a>
 
         <a href="<%=str2%>">
             <div class="<%= class2%>">
-                <%= if @area == "1" do %>
-                    <div class="message">boss</div>
-                <%else %>
-
-                    <%= if @area == "2" do %>
-                        <div class="message">boss</div>
-                    <%else %>
-
-                        <%= if @area == "3" do %>
-                            <div class="message">boss</div>
-                        <%else %>
-
-                            <%= if @area == "4" do %>
-                                <div class="message">boss</div>
-                            <%end %>
-
-                        <%end %>
-                    <%end %>
-                <%end %>
+                    <div class="message">stage2 : "List, line up, damce, reborn!"</div>
             </div>
         </a>
     </div>
-  </div>
 
   <div class="textbox">
     <p class="text">
