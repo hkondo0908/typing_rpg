@@ -20,8 +20,9 @@ defmodule TypingMaojoWeb.MainLive do
         {:noreply, assign(socket, missflag: false)}
     end
 
-    def handle_info(:finish, socket) do
-        {:noreply, assign(socket, endflag: true)}
+    def handle_event("finish",_, socket) do
+
+        {:noreply, game_finish(socket)}
     end
 
     def handle_event("start", _,socket) do
@@ -78,16 +79,17 @@ defmodule TypingMaojoWeb.MainLive do
             enemy: 1,
             startflag: false,
             missflag: false,
-            endflag: false
+            endflag: false,
+            finish_message: ""
         ]
         assign(socket,value)
     end
 
     defp update_socket(socket) do
         if socket.assigns.time > String.to_integer(socket.assigns.stage)*60-1 do
-            game_finish(socket,:finished)
+            represent_finish(socket,:finished)
         else
-            if !socket.assigns.startflag or socket.assigns.escflag do
+            if !socket.assigns.startflag or socket.assigns.escflag or socket.assigns.endflag do
                 socket
             else
                update(socket, :time, & &1 + 1)
@@ -116,7 +118,7 @@ defmodule TypingMaojoWeb.MainLive do
             if number == sentence_len - 1 do
                 if at == max - 1 do
                     update(socket,:sentence_at, &(&1 + 1))
-                    |> game_finish(:completed)
+                    |> represent_finish(:completed)
                 else
                     new_sentence =
                     Enum.at(sentence_list,at+1)
@@ -143,7 +145,7 @@ defmodule TypingMaojoWeb.MainLive do
                 |> update(:misstypes, &[expected_key|&1])
                 |> assign(missflag: true)
             if error == 9 do
-                game_finish(socket, :failed)
+                represent_finish(socket,:failed)
             else
                 :timer.send_after(1000,:miss)
                 socket
@@ -152,8 +154,17 @@ defmodule TypingMaojoWeb.MainLive do
         end
     end
 
-    defp game_finish(socket,atom) do
-        :timer.send_after(1000,:finish)
+    defp represent_finish(socket,atom) do
+        message =
+        case atom do
+            :completed ->  "ステージクリア！"
+            :finished ->  "失敗...\n時間切れ..."
+            :failed ->  "失敗...\nHP切れ..."
+        end
+        assign(socket, endflag: true, result: atom, finish_message: message)
+    end
+
+    defp game_finish(socket) do
 
         %{
             area: area,
@@ -163,7 +174,8 @@ defmodule TypingMaojoWeb.MainLive do
             sentence_at: at,
             misstypes: misstypes,
             id: id,
-            sentence_list: sentence_list
+            sentence_list: sentence_list,
+            result: result
         }
         =socket.assigns
 
@@ -180,8 +192,7 @@ defmodule TypingMaojoWeb.MainLive do
         exp = (Stages.find_exp(area,stage)) * at
         Levels.level_up(id,exp)
 
-        :timer.sleep(3000)
-        put_flash(socket,:result,atom)
+        put_flash(socket,:result,result)
         |> put_flash(:error,error)
         |> put_flash(:time,time)
         |> put_flash(:count, at)

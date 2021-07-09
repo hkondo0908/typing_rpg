@@ -26,6 +26,7 @@ else
         {"タイトルに戻る","/game/start/"}
     end
 end
+
 %>
 
 
@@ -67,16 +68,15 @@ end
                 <tr>
                     <tr>
                     <td>クリアタイム:</td>
-                    <%=if Enum.at(@bools,3) == 0 do%>
+                    <%=if Enum.at(@bools,3) == 0 or @result != :completed do%>
                     <td> <%= message %> <span class="small-letter"> / <%= String.to_integer(@stage)*60 %>秒 </span></td>
-                    <td>クリアタイム:</td>
                     <% else %>
                     <td><span class="red">New!</span><%= message %> <span class="small-letter"> / <%= String.to_integer(@stage)*60 %>秒</span></td>
                     <% end %>
                 </tr>
                 <tr>
                     <td>ミス:</td>
-                    <%=if Enum.at(@bools,1) == 0 do%>
+                    <%=if Enum.at(@bools,1) == 0 or @result != :completed do%>
                     <td><%= @error %>回</td>
                     <% else %>
                     <td><span class="red">New!</span><%= @error%>回</td>
@@ -90,11 +90,14 @@ end
                     <td>苦手なキー:</td>
                     <td></td>
                 </tr>
-                <%= for misstype <- misstypes do %>
-                    <tr>
-                        <td><%= List.first(misstype) %></td>
-                        <td><%= List.last(misstype) %>回</td>
-                    </tr>
+
+                <%= if misstypes != [[]] do%>
+                    <%= for misstype <- misstypes do %>
+                        <tr>
+                            <td><%= List.first(misstype) %></td>
+                            <td><%= List.last(misstype) %>回</td>
+                        </tr>
+                    <% end %>
                 <% end %>
             </table>
         </div>
@@ -113,13 +116,16 @@ end
 
         <tr>
             <th>お題の例文</th>
+            <%=if @stage == "2" do%>
             <th>実行結果</th>
+            <% end %>
         </tr>
+        <% IO.inspect(@functions) %>
         <%= for function <- @functions do %>
             <tr>
                 <td><%= List.first(function) %></td>
-                <%= if List.last(function) != "" do %>
-                    <td><%= List.last(function) %></td>
+                <%= if List.last(function) !="" do%>
+                <td><%= List.last(function) %></td>
                 <% end %>
             </tr>
         <% end %>
